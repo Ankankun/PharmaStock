@@ -6,7 +6,14 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
 }
 
 .navbar {
@@ -16,10 +23,16 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: #293241;
-  width: 100vw;
+  width: 100%;
   height: 100px;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 636px) {
+  .navbar {
+    height: 132px;
+  }
 }
 
 .logo img {
@@ -33,8 +46,21 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
   gap: 40px;
   margin-right: 64px;
+}
+
+@media (max-width: 900px) {
+  .menu-items {
+    gap: 24px;
+  }
+}
+@media (max-width: 600px) {
+  .menu-items {
+    gap: 16px;
+    justify-content: center;
+  }
 }
 
 .menu-items a {
@@ -55,8 +81,10 @@ footer {
   justify-content: space-between;
   position: relative;
   bottom: 0px;
-  height: 144px;
-  width: 100vw;
+  min-height: 144px;
+  height: auto;
+  align-items: center;
+  width: 100%;
 }
 
 .footer {
@@ -97,26 +125,36 @@ p {
 }
 
 h1 {
-  margin-top: 144px;
+  margin-top: 0;
+  font-size: 2.5rem;
+  margin-bottom: 16px;
 }
 
 p {
-  margin-top: 24px;
+  margin-top: 16px;
+  font-size: 1.2rem;
 }
 
 main {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120px;
+  box-sizing: border-box;
 }
 
 .form {
   background-color: rgba(238, 108, 77, 0.4);
-  display: inline-block;
-  width: 44vw;
+  display: block;
   border-radius: 16px;
   box-shadow: 4px 4px 8px rgba(41, 50, 65, 0.5);
   margin: 16px auto 64px;
+  padding: 0;
   min-width: 300px;
   max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 form {
@@ -128,9 +166,10 @@ input[type="email"],
 input[type="number"],
 textarea,
 select {
-  margin: 10px 0 0 0;
+  margin: 8px 0 0 0;
   width: 100%;
-  min-height: 1.5em;
+  min-height: 2em;
+  font-size: 1rem;
 }
 
 .stock {
@@ -140,19 +179,17 @@ select {
 .question {
   display: block;
   text-align: left;
-  font-size: larger;
+  font-size: 1.5rem;
 }
 
-.options {
-  text-align: left;
-}
-
+.options,
 .checkboxes {
   text-align: left;
+  font-size: 1.2rem;
 }
 
 label {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }
 
 hr {
@@ -160,6 +197,24 @@ hr {
   border-color: rgba(128, 128, 128, 0);
 }
 
+textarea {
+  resize: vertical;
+}
+
 .btn {
-  background-color: #e0fbfc;
+  background-color: #ee6c4d;
+  width: 96px;
+  height: 44px;
+  margin-top: 32px;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.4s ease;
+  color: #e0fbfc;
+  font-size: large;
+}
+
+.btn:hover,
+.btn:active {
+  transform: translateY(-6px);
+  box-shadow: 2px 2px 30px 1px rgba(238, 108, 77, 0.9);
 }

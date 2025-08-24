@@ -35,7 +35,7 @@
       <h1>Feedback Form</h1>
       <p>Thank you for taking the time to help us improve the platform</p>
       <div class="form">
-        <form action="" method="post">
+        <form action="https://formsubmit.co/ankandas428@gmail.com" method="post">
           <!-- Name of the Customer -->
           <label class="question" for="name"> Name </label>
           <input type="text" id="name" name="name" required />
@@ -50,14 +50,14 @@
           <hr />
           <!-- Radio button for Usage -->
           <label class="question" for="usage">How often do you use PharmaStock?</label>
-          <select id="usage" name="usage">
+          <select id="usage" name="usage" required>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
             <option value="rarely">Rarely</option>
           </select>
           <hr />
-          <!-- Checkbox for Recommend -->
+          <!-- Radio for Recommend -->
           <label class="question">Would you recommend PharmaStock to others?</label>
           <div class="options">
             <input type="radio" id="definitely" name="recommend" value="Definitely" />
@@ -95,7 +95,7 @@
               placeholder="I like PharmaStock because..."
             ></textarea>
           </div>
-          <button type="button" class="btn">Submit</button>
+          <button type="submit" class="btn" value="Submit">Submit</button>
         </form>
       </div>
     </main>
