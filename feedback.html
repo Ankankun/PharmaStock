@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+
+    <title>PharmaStock | Feedback</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html"> <img src="./assets/Pharma Stock Logo svg.svg" alt="logo" /> </a>
+      </div>
+      <div class="menu-items">
+        <a href="profile.html">Profile</a>
+        <a href="stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="reports.html">Reports</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="./assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Main section -->
+    <main>
+      <h1>Feedback Form</h1>
+      <p>Thank you for taking the time to help us improve the platform</p>
+      <div class="form">
+        <form action="" method="post">
+          <!-- Name of the Customer -->
+          <label class="question" for="name"> Name </label>
+          <input type="text" id="name" name="name" required />
+          <hr />
+          <!-- Email of the Customer -->
+          <label class="question" for="email"> Email </label>
+          <input type="email" id="email" name="email" required />
+          <hr />
+          <!-- Registration ID of the Customer -->
+          <label class="question" for="reg-id"> Registration ID </label>
+          <input type="number" id="reg-id" name="reg-id" required />
+          <hr />
+          <!-- Radio button for Usage -->
+          <label class="question" for="usage">How often do you use PharmaStock?</label>
+          <select id="usage" name="usage">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="rarely">Rarely</option>
+          </select>
+          <hr />
+          <!-- Checkbox for Recommend -->
+          <label class="question">Would you recommend PharmaStock to others?</label>
+          <div class="options">
+            <input type="radio" id="definitely" name="recommend" value="Definitely" />
+            <label for="definitely">Definitely</label><br />
+            <input type="radio" id="maybe" name="recommend" value="Maybe" />
+            <label for="maybe">Maybe</label><br />
+            <input type="radio" id="notsure" name="recommend" value="Not sure" />
+            <label for="notsure">Not sure</label>
+          </div>
+          <hr />
+          <!-- Improvement suggestion -->
+          <label class="question"
+            >What would you like to see improved? (Check all that apply)</label
+          >
+          <div class="checkboxes">
+            <input type="checkbox" id="stock" name="improve" value="Stock Management" />
+            <label for="stock">Stock Management</label><br />
+            <input type="checkbox" id="reports" name="improve" value="Reports & Analytics" />
+            <label for="reports">Reports & Analytics</label><br />
+            <input type="checkbox" id="ui" name="improve" value="User Interface" />
+            <label for="ui">User Interface</label><br />
+            <input type="checkbox" id="support" name="improve" value="Customer Support" />
+            <label for="support">Customer Support</label><br />
+            <input type="checkbox" id="notifications" name="improve" value="Expiry Notifications" />
+            <label for="notifications">Expiry Notifications</label>
+          </div>
+          <hr />
+          <div class="textarea">
+            <label for="textarea" class="question">Any comments or suggestions?</label>
+            <textarea
+              id="textarea"
+              name="textarea"
+              rows="6"
+              cols="30"
+              placeholder="I like PharmaStock because..."
+            ></textarea>
+          </div>
+          <button type="button" class="btn">Submit</button>
+        </form>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="./assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="./assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="./assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>
