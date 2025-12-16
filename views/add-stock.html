@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <script src="../public/js/script.js" defer></script>
+
+    <title>PharmaStock | Home Page</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="../public/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="profile.html">Profile</a>
+        <a href="stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="../public/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Add Stock Section -->
+    <main class="stock-layout">
+      <aside class="stock-sidebar">
+        <h2>STOCKS</h2>
+        <div class="sidebar-divider"></div>
+        <nav class="stock-nav">
+          <button class="btn-sidebar active">Add +</button>
+          <button class="btn-sidebar">View</button>
+          <button class="btn-sidebar">Update</button>
+          <button class="btn-sidebar">Sell</button>
+        </nav>
+        <div class="sidebar-divider bottom"></div>
+      </aside>
+
+      <section class="stock-content">
+        <form class="stock-form">
+          <div class="form-grid">
+            <!-- Row 1 -->
+            <div class="form-group">
+              <label for="batch-no">Batch No</label>
+              <input type="text" id="batch-no" placeholder="Batch No" />
+            </div>
+            <div class="form-group">
+              <label for="med-name">Med name</label>
+              <input type="text" id="med-name" placeholder="Med name" />
+            </div>
+            <div class="form-group">
+              <label for="manf-name">Manf. Name</label>
+              <input type="text" id="manf-name" placeholder="Manf. Name" />
+            </div>
+
+            <!-- Row 2 -->
+            <div class="form-group">
+              <label for="manf-date">Manf. Date</label>
+              <input type="date" id="manf-date" placeholder="Manf. Date" />
+            </div>
+            <div class="form-group">
+              <label for="exp-date">Exp Date</label>
+              <input type="date" id="exp-date" placeholder="Exp Date" />
+            </div>
+            <div class="form-group">
+              <label for="rack-no">Rack / Shelf No</label>
+              <input type="text" id="rack-no" placeholder="e.g. Rack A-2" />
+            </div>
+
+            <!-- Row 3 -->
+            <div class="form-group">
+              <label for="buying-cost">Buying Cost</label>
+              <input type="number" id="buying-cost" placeholder="Buying cost" />
+            </div>
+            <div class="form-group">
+              <label for="mrp">MRP</label>
+              <input type="number" id="mrp" placeholder="MRP" />
+            </div>
+            <div class="form-group">
+              <label for="discount-cost">Discount Cost</label>
+              <input type="number" id="discount-cost" placeholder="Discount cost" />
+            </div>
+
+            <!-- Row 4 -->
+            <div class="form-group">
+              <label for="consumer-cost">Consumer Cost</label>
+              <input type="number" id="consumer-cost" placeholder="Consumer Cost" />
+            </div>
+            <div class="form-group">
+              <label for="prescription">Prescription Needed</label>
+              <select id="prescription">
+                <option value="" disabled selected>Prescription needed</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="generic-name">Generic Name</label>
+              <input type="text" id="generic-name" placeholder="e.g. Paracetamol" />
+            </div>
+
+            <!-- Row 5 -->
+            <div class="form-group">
+              <label for="supplier-id">Supplier Name/Id</label>
+              <input type="text" id="supplier-id" placeholder="Supplier Name/Id" />
+            </div>
+            <div class="form-group">
+              <label for="supplier-contact">Supplier Contact</label>
+              <input type="text" id="supplier-contact" placeholder="Supplier Contact" />
+            </div>
+            <div class="form-group">
+              <label for="med-category">Med Category</label>
+              <input type="text" id="med-category" placeholder="Med Category" />
+            </div>
+
+            <!-- Row 6 -->
+            <div class="form-group">
+              <label for="date-entry">Date of entry</label>
+              <input type="date" id="date-entry" />
+            </div>
+            <div class="form-group">
+              <label for="unit-type">Unit Type</label>
+              <select id="unit-type">
+                <option value="" disabled selected>Select Unit</option>
+                <option value="strip">Strip</option>
+                <option value="bottle">Bottle</option>
+                <option value="box">Box</option>
+                <option value="vial">Vial</option>
+                <option value="tablet">Tablet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" placeholder="Quantity" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-save">Save</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="../public/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="../public/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="../public/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>

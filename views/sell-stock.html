@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <script src="../public/js/script.js" defer></script>
+
+    <title>PharmaStock | Home Page</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="../public/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="profile.html">Profile</a>
+        <a href="stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="../public/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Sell Stock Section -->
+    <main class="stock-layout">
+      <aside class="stock-sidebar">
+        <h2>STOCKS</h2>
+        <div class="sidebar-divider"></div>
+        <nav class="stock-nav">
+          <button class="btn-sidebar" onclick="window.location.href='add-stock.html'">Add +</button>
+          <button class="btn-sidebar" onclick="window.location.href='view-stock.html'">View</button>
+          <button class="btn-sidebar" onclick="window.location.href='update-stock.html'">
+            Update
+          </button>
+          <button class="btn-sidebar active">Sell</button>
+        </nav>
+        <div class="sidebar-divider bottom"></div>
+      </aside>
+
+      <section class="stock-content">
+        <div class="view-stock-header">
+          <h1>Sell Medicine / Billing</h1>
+          <div class="date-display" style="font-weight: 600; color: #556b7f">
+            Date: <span id="current-date">2025-12-17</span>
+          </div>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="form-section" style="width: 100%; max-width: 1200px">
+          <h3 style="text-align: left; color: #3d5a80; margin-bottom: 15px; font-size: 1.2rem">
+            Customer Details
+          </h3>
+          <form class="stock-form" style="margin-bottom: 0">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="customer-name">Customer Name</label>
+                <input type="text" id="customer-name" placeholder="Enter Name" />
+              </div>
+              <div class="form-group">
+                <label for="customer-phone">Phone Number</label>
+                <input type="text" id="customer-phone" placeholder="Enter Phone" />
+              </div>
+              <div class="form-group">
+                <label for="doctor-name">Prescribed By</label>
+                <input type="text" id="doctor-name" placeholder="Doctor Name" />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <hr
+          style="
+            margin: 20px 0;
+            border-color: #e0e0e0;
+            opacity: 0.5;
+            width: 100%;
+            max-width: 1200px;
+          "
+        />
+
+        <!-- Add Item Section -->
+        <div class="form-section" style="width: 100%; max-width: 1200px">
+          <h3 style="text-align: left; color: #3d5a80; margin-bottom: 15px; font-size: 1.2rem">
+            Add Item to Bill
+          </h3>
+          <div class="form-grid" style="align-items: flex-end">
+            <div class="form-group" style="grid-column: span 2">
+              <label for="search-med">Search Medicine</label>
+              <div class="search-bar" style="width: 100%">
+                <input type="text" id="search-med" placeholder="Batch No or Name" />
+                <button class="btn-search" type="button">Find</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Available</label>
+              <input type="text" value="50" readonly />
+            </div>
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text" value="22.00" readonly />
+            </div>
+            <div class="form-group">
+              <label for="sell-qty">Qty</label>
+              <input type="number" id="sell-qty" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <button class="btn-save" type="button" style="margin-bottom: 2px; width: 100%">
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bill Table -->
+        <div class="table-container" style="margin-top: 30px">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Medicine</th>
+                <th>Batch</th>
+                <th>Exp</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Paracetamol 500mg</td>
+                <td>B-1001</td>
+                <td>2025-12-31</td>
+                <td>22.00</td>
+                <td>2</td>
+                <td>44.00</td>
+                <td><button class="btn-delete">Remove</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Cough Syrup</td>
+                <td>B-1005</td>
+                <td>2024-11-05</td>
+                <td>85.00</td>
+                <td>1</td>
+                <td>85.00</td>
+                <td><button class="btn-delete">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Grand Total & Actions -->
+        <div class="bill-summary">
+          <div class="grand-total">Total: <span>129.00</span></div>
+          <button class="btn-save btn-receipt">Generate Receipt</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="../public/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="../public/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="../public/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>

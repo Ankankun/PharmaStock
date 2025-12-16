@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <script src="../public/js/script.js" defer></script>
+
+    <title>PharmaStock | Home Page</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="../public/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="profile.html">Profile</a>
+        <a href="stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="../public/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Login Section -->
+    <main class="login-wrapper">
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Log In</h1>
+          <img src="../public/assets/account-symbol.svg" alt="User Icon" class="login-icon" />
+        </div>
+
+        <form class="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Email" required />
+            <small>Enter your email address</small>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Your password</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" placeholder="Password" required />
+              <img
+                src="../public/assets/close-eye.png"
+                id="togglePassword"
+                class="eye-icon toggle-password"
+                alt="Toggle Password"
+              />
+            </div>
+            <small>Enter your password</small>
+          </div>
+
+          <button type="submit" class="btn-login">Log In</button>
+
+          <div class="login-links">
+            <a href="#">Forgot password?</a>
+            <span>|</span>
+            <a href="register.html">Create a new account</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="../public/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="../public/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="../public/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <script src="../public/js/script.js" defer></script>
+
+    <title>PharmaStock | Home Page</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="../public/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="profile.html">Profile</a>
+        <a href="stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="../public/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Update Stock Section -->
+    <main class="stock-layout">
+      <aside class="stock-sidebar">
+        <h2>STOCKS</h2>
+        <div class="sidebar-divider"></div>
+        <nav class="stock-nav">
+          <button class="btn-sidebar" onclick="window.location.href='add-stock.html'">Add +</button>
+          <button class="btn-sidebar" onclick="window.location.href='view-stock.html'">View</button>
+          <button class="btn-sidebar active">Update</button>
+          <button class="btn-sidebar">Sell</button>
+        </nav>
+        <div class="sidebar-divider bottom"></div>
+      </aside>
+
+      <section class="stock-content">
+        <div class="view-stock-header">
+          <h1>Update Stock</h1>
+          <div class="search-bar">
+            <input type="text" placeholder="Enter Batch No to Search..." />
+            <button class="btn-search">Fetch Details</button>
+          </div>
+        </div>
+
+        <form class="stock-form">
+          <div class="form-grid">
+            <!-- Read-Only Identification Fields -->
+            <div class="form-group">
+              <label for="batch-no">Batch No</label>
+              <input type="text" id="batch-no" value="B-1001" readonly />
+            </div>
+            <div class="form-group">
+              <label for="med-name">Med Name</label>
+              <input type="text" id="med-name" value="Paracetamol 500mg" readonly />
+            </div>
+            <div class="form-group">
+              <label for="manf-name">Manf. Name</label>
+              <input type="text" id="manf-name" value="ABC Pharma" readonly />
+            </div>
+
+            <!-- Editable Fields for Manual Update -->
+            <div class="form-group">
+              <label for="quantity">Quantity (Update)</label>
+              <input type="number" id="quantity" value="50" />
+            </div>
+
+            <div class="form-group">
+              <label for="rack-no">Rack / Shelf No</label>
+              <input type="text" id="rack-no" value="A-1" />
+            </div>
+
+            <div class="form-group">
+              <label for="exp-date">Exp Date</label>
+              <input type="date" id="exp-date" value="2025-12-31" />
+            </div>
+
+            <div class="form-group">
+              <label for="mrp">MRP</label>
+              <input type="number" id="mrp" value="25.00" />
+            </div>
+
+            <div class="form-group">
+              <label for="consumer-cost">Consumer Cost</label>
+              <input type="number" id="consumer-cost" value="22.00" />
+            </div>
+
+            <div class="form-group">
+              <label for="status">Stock Status</label>
+              <select id="status">
+                <option value="in-stock" selected>In Stock</option>
+                <option value="low-stock">Low Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
+                <option value="expired">Expired</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-save">Update Stock</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="../public/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="../public/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="../public/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>
