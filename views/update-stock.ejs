@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Updated Paths -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/medicine.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+
+    <title>PharmaStock | Update Stock</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="/add-stock">Stock</a>
+        <a href="/view-stock">View</a>
+        <a href="#">Customer</a>
+        <a href="#">Payment</a>
+        <a href="#">Feedback</a>
+        <a href="#">Sales</a>
+        <a href="#">Account</a>
+        <a href="#">
+          <img src="/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Update Stock Section -->
+    <main class="stock-layout">
+      <aside class="stock-sidebar">
+        <h2>STOCKS</h2>
+        <div class="sidebar-divider"></div>
+        <nav class="stock-nav">
+          <button class="btn-sidebar" onclick="window.location.href='/add-stock'">Add +</button>
+          <button class="btn-sidebar" onclick="window.location.href='/view-stock'">View</button>
+          <button class="btn-sidebar active" onclick="window.location.href='/update-stock'">Update</button>
+          <button class="btn-sidebar" onclick="window.location.href='/sell'">Sell</button>
+        </nav>
+        <div class="sidebar-divider bottom"></div>
+      </aside>
+
+      <section class="stock-content">
+        <div class="view-stock-header">
+          <h1>Update Stock</h1>
+          
+          <!-- Search Form: Sends Batch No to Server via GET -->
+          <form class="search-bar" action="/update-stock" method="GET">
+            <input 
+                type="text" 
+                name="batch_search" 
+                placeholder="Enter Batch No to Search..." 
+                value="<%= searchTerm ? searchTerm : '' %>" 
+            />
+            <button type="submit" class="btn-search">Fetch Details</button>
+          </form>
+        </div>
+
+        <!-- Show Error if search result is empty -->
+        <% if (searchTerm && !medicine) { %>
+            <div style="background-color: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                ❌ No medicine found with Batch Number: <strong><%= searchTerm %></strong>
+            </div>
+        <% } %>
+
+        <!-- Update Form: Only shows if medicine data is found OR strictly preserves layout with empty values -->
+        <form class="stock-form" action="/inventory/update" method="POST">
+            
+            <!-- Hidden ID to identify which record to update -->
+            <input type="hidden" name="med_id" value="<%= medicine ? medicine.med_id : '' %>">
+
+          <div class="form-grid">
+            <!-- Read-Only Identification Fields -->
+            <div class="form-group">
+              <label for="batch-no">Batch No</label>
+              <input type="text" id="batch-no" name="batch_no" value="<%= medicine ? medicine.batch_no : '' %>" readonly style="background-color: #e9ecef;" />
+            </div>
+            <div class="form-group">
+              <label for="med-name">Med Name</label>
+              <input type="text" id="med-name" name="med_name" value="<%= medicine ? medicine.med_name : '' %>" readonly style="background-color: #e9ecef;" />
+            </div>
+            <div class="form-group">
+              <label for="manf-name">Manf. Name</label>
+              <input type="text" id="manf-name" value="<%= medicine ? medicine.manufacturer_name : '' %>" readonly style="background-color: #e9ecef;" />
+            </div>
+
+            <!-- Editable Fields for Manual Update -->
+            <div class="form-group">
+              <label for="quantity">Quantity (Update)</label>
+              <input type="number" id="quantity" name="quantity" value="<%= medicine ? medicine.quantity : '' %>" />
+            </div>
+
+            <div class="form-group">
+              <label for="rack-no">Rack / Shelf No</label>
+              <input type="text" id="rack-no" name="rack_no" value="<%= medicine ? medicine.rack_no : '' %>" />
+            </div>
+
+            <div class="form-group">
+              <label for="exp-date">Exp Date</label>
+              <input type="date" id="exp-date" name="expiry_date" value="<%= medicine ? medicine.expiry_date : '' %>" />
+            </div>
+
+            <div class="form-group">
+              <label for="mrp">MRP</label>
+              <input type="number" step="0.01" id="mrp" name="mrp" value="<%= medicine ? medicine.mrp : '' %>" />
+            </div>
+
+            <div class="form-group">
+              <label for="consumer-cost">Consumer Cost</label>
+              <input type="number" step="0.01" id="consumer-cost" name="consumer_cost" value="<%= medicine ? medicine.consumer_cost : '' %>" />
+            </div>
+
+            <div class="form-group">
+              <label for="status">Stock Status</label>
+              <select id="status" name="stock_status">
+                <option value="Available" <%= (medicine && medicine.stock_status === 'Available') ? 'selected' : '' %>>Available</option>
+                <option value="Low Stock" <%= (medicine && medicine.stock_status === 'Low Stock') ? 'selected' : '' %>>Low Stock</option>
+                <option value="Out of Stock" <%= (medicine && medicine.stock_status === 'Out of Stock') ? 'selected' : '' %>>Out of Stock</option>
+                <option value="Expired" <%= (medicine && medicine.stock_status === 'Expired') ? 'selected' : '' %>>Expired</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Only enable button if medicine is loaded -->
+          <button type="submit" class="btn-save" <%= medicine ? '' : 'disabled style=opacity:0.5;cursor:not-allowed;' %>>Update Stock</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/medicine.png" />
-    <link rel="stylesheet" href="../public/css/style.css" />
-    <script src="../public/js/script.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
 
     <title>PharmaStock | Home Page</title>
   </head>
@@ -15,7 +15,7 @@
     <div class="navbar">
       <div class="logo">
         <a href="index.html">
-          <img src="../public/assets/Pharma Stock Logo svg.svg" alt="logo" />
+          <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
         </a>
       </div>
       <div class="menu-items">
@@ -26,7 +26,7 @@
         <a href="sales.html">Sales</a>
         <a href="account.html">Account</a>
         <a href="account.html">
-          <img src="../public/assets/account-symbol.svg" alt="account-symbol" />
+          <img src="/assets/account-symbol.svg" alt="account-symbol" />
         </a>
       </div>
     </div>
@@ -37,11 +37,9 @@
         <h2>STOCKS</h2>
         <div class="sidebar-divider"></div>
         <nav class="stock-nav">
-          <button class="btn-sidebar" onclick="window.location.href='add-stock.html'">Add +</button>
-          <button class="btn-sidebar" onclick="window.location.href='view-stock.html'">View</button>
-          <button class="btn-sidebar" onclick="window.location.href='update-stock.html'">
-            Update
-          </button>
+          <button class="btn-sidebar" onclick="window.location.href='/add-stock'">Add +</button>
+          <button class="btn-sidebar" onclick="window.location.href='/view-stock'">View</button>
+          <button class="btn-sidebar" onclick="window.location.href='/update-stock'">Update</button>
           <button class="btn-sidebar active">Sell</button>
         </nav>
         <div class="sidebar-divider bottom"></div>
@@ -97,24 +95,29 @@
             <div class="form-group" style="grid-column: span 2">
               <label for="search-med">Search Medicine</label>
               <div class="search-bar" style="width: 100%">
-                <input type="text" id="search-med" placeholder="Batch No or Name" />
-                <button class="btn-search" type="button">Find</button>
+                <input type="text" id="search-med" placeholder="Batch No" />
+                <button class="btn-search" id="btn-find-med" type="button">Find</button>
               </div>
             </div>
             <div class="form-group">
               <label>Available</label>
-              <input type="text" value="50" readonly />
+              <input type="text" id="display-available" readonly placeholder="-" />
             </div>
             <div class="form-group">
               <label>Price</label>
-              <input type="text" value="22.00" readonly />
+              <input type="text" id="display-price" readonly placeholder="0.00" />
             </div>
             <div class="form-group">
               <label for="sell-qty">Qty</label>
               <input type="number" id="sell-qty" placeholder="0" />
             </div>
             <div class="form-group">
-              <button class="btn-save" type="button" style="margin-bottom: 2px; width: 100%">
+              <button
+                class="btn-save"
+                id="btn-add-item"
+                type="button"
+                style="margin-bottom: 2px; width: 100%"
+              >
                 Add
               </button>
             </div>
@@ -123,7 +126,7 @@
 
         <!-- Bill Table -->
         <div class="table-container" style="margin-top: 30px">
-          <table class="stock-table">
+          <table class="stock-table" id="bill-table">
             <thead>
               <tr>
                 <th>#</th>
@@ -137,33 +140,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Paracetamol 500mg</td>
-                <td>B-1001</td>
-                <td>2025-12-31</td>
-                <td>22.00</td>
-                <td>2</td>
-                <td>44.00</td>
-                <td><button class="btn-delete">Remove</button></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Cough Syrup</td>
-                <td>B-1005</td>
-                <td>2024-11-05</td>
-                <td>85.00</td>
-                <td>1</td>
-                <td>85.00</td>
-                <td><button class="btn-delete">Remove</button></td>
-              </tr>
+              <!-- Items will be added here dynamically -->
             </tbody>
           </table>
         </div>
 
         <!-- Grand Total & Actions -->
         <div class="bill-summary">
-          <div class="grand-total">Total: <span>129.00</span></div>
+          <div class="grand-total">Total: <span id="grand-total">0.00</span></div>
           <button class="btn-save btn-receipt">Generate Receipt</button>
         </div>
       </section>
@@ -177,9 +161,9 @@
         <a href="email.html">Email</a>
       </div>
       <div class="socials">
-        <img src="../public/assets/Social-Instagram.svg" alt="Instagram-icon" />
-        <img src="../public/assets/Social-fb.svg" alt="Facebook-icon" />
-        <img src="../public/assets/Social-twitter.svg" alt="Twitter-icon" />
+        <img src="/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="/assets/Social-twitter.svg" alt="Twitter-icon" />
       </div>
     </footer>
   </body>

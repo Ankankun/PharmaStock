@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 // DATABASE CONNECTION
 // -----------------------------------------
 // using your password from the previous snippet
-const sequelize = new Sequelize("pharmastock", "root", "dhar98315", {
+const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
   host: "localhost",
   dialect: "mysql",
   logging: false, // Set to true to see raw SQL queries
@@ -125,8 +125,139 @@ sequelize
   });
 
 // -----------------------------------------
-// BASIC ROUTE
+// ROUTES
 // -----------------------------------------
+
+// 1. HOME REDIRECT
 app.get("/", (req, res) => {
-  res.send("<h1>Pharma Stock (Revised Schema) is Running!</h1>");
+  res.redirect("/view-stock");
+});
+
+// 2. SHOW ADD STOCK PAGE
+app.get("/add-stock", (req, res) => {
+  res.render("add-stock");
+});
+
+// 3. SHOW VIEW STOCK PAGE
+app.get("/view-stock", async (req, res) => {
+  try {
+    const medicines = await Medicine.findAll();
+    res.render("view-stock", { medicines: medicines });
+  } catch (err) {
+    console.error(err);
+    res.send("Error loading stock");
+  }
+});
+
+// 4. HANDLE FORM SUBMISSION
+app.post("/inventory/add", async (req, res) => {
+  try {
+    await Medicine.create({
+      batch_no: req.body.batch_no,
+      med_name: req.body.med_name,
+      manufacturer_name: req.body.manufacturer_name,
+      manufacture_date: req.body.manufacture_date,
+      expiry_date: req.body.expiry_date,
+      rack_no: req.body.rack_no,
+      buying_cost: req.body.buying_cost,
+      mrp: req.body.mrp,
+      consumer_cost: req.body.consumer_cost,
+      prescription_required: req.body.prescription_required === "yes",
+      generic_name: req.body.generic_name,
+      supplier_name: req.body.supplier_name,
+      supplier_contact: req.body.supplier_contact,
+      category: req.body.category,
+      entry_date: req.body.entry_date,
+      unit_type: req.body.unit_type,
+      quantity: req.body.quantity,
+      stock_status: "Available",
+    });
+    console.log("✅ Medicine Added!");
+    res.redirect("/view-stock");
+  } catch (err) {
+    console.error(err);
+    res.send("Error adding medicine: " + err.message);
+  }
+});
+
+// 5. SHOW UPDATE PAGE (GET)
+// This handles both the initial load AND the search button click
+app.get("/update-stock", async (req, res) => {
+  try {
+    const batchSearch = req.query.batch_search || ""; // Get the search term from URL
+    let medicine = null;
+
+    // If user searched, try to find the medicine
+    if (batchSearch) {
+      medicine = await Medicine.findOne({
+        where: { batch_no: batchSearch },
+      });
+    }
+
+    // CRITICAL: We MUST pass 'medicine' and 'searchTerm' even if they are null
+    res.render("update-stock", {
+      medicine: medicine,
+      searchTerm: batchSearch,
+    });
+  } catch (err) {
+    console.error("Error loading update page:", err);
+    res.send("Error loading update page");
+  }
+});
+
+// 6. HANDLE UPDATE FORM SUBMISSION (POST)
+app.post("/inventory/update", async (req, res) => {
+  try {
+    const medId = req.body.med_id;
+
+    // Update the specific fields
+    await Medicine.update(
+      {
+        quantity: req.body.quantity,
+        rack_no: req.body.rack_no,
+        expiry_date: req.body.expiry_date,
+        mrp: req.body.mrp,
+        consumer_cost: req.body.consumer_cost,
+        stock_status: req.body.stock_status,
+      },
+      {
+        where: { med_id: medId },
+      }
+    );
+
+    console.log("✅ Stock Updated!");
+    res.redirect("/view-stock"); // Go back to view list
+  } catch (err) {
+    console.error("Error updating stock:", err);
+    res.send("Error updating stock: " + err.message);
+  }
+});
+
+// 7. SHOW SELL PAGE (GET)
+app.get("/sell", async (req, res) => {
+  try {
+    const medicines = await Medicine.findAll();
+    res.render("sell-stock", { medicines: medicines });
+  } catch (err) {
+    console.error("Error loading sell page:", err);
+    res.send("Error loading sell page");
+  }
+});
+
+// 8. API: GET MEDICINE DETAILS (For Sell Page AJAX)
+app.get("/api/medicine/:batch", async (req, res) => {
+  try {
+    const medicine = await Medicine.findOne({
+      where: { batch_no: req.params.batch },
+    });
+
+    if (medicine) {
+      res.json({ success: true, data: medicine });
+    } else {
+      res.json({ success: false, message: "Medicine not found" });
+    }
+  } catch (err) {
+    console.error("API Error:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
 });

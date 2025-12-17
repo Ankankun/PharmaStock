@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PharmaStock | View Stock</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/medicine.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="add-stock.html">Stock</a>
+        <a href="customer.html">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <!-- View Stock Section -->
+    <main class="stock-layout">
+        <aside class="stock-sidebar">
+            <h2>STOCKS</h2>
+            <div class="sidebar-divider"></div>
+            <nav class="stock-nav">
+                <button class="btn-sidebar" onclick="window.location.href='/add-stock'">Add +</button>
+                <button class="btn-sidebar active" onclick="window.location.href='/view-stock'">View</button>
+                <button class="btn-sidebar" onclick="window.location.href='/update-stock'">Update</button>
+                <button class="btn-sidebar" onclick="window.location.href='/sell'">Sell</button>
+            </nav>
+            <div class="sidebar-divider bottom"></div>
+        </aside>
+
+        <section class="stock-content">
+            
+            <div class="view-stock-header">
+                <h1>Current Inventory</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search..." id="searchInput">
+                    <button type="button" class="btn-search">Search</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="stock-table" id="stockTable">
+                    <thead>
+                        <tr>
+                            <th>Batch No</th>
+                            <th>Medicine Name</th>
+                            <th>Expiry Date</th>
+                            <th>Quantity</th>
+                            <th>Rack</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(medicines.length > 0) { %>
+                            <% medicines.forEach(med => { %>
+                                <tr>
+                                    <td><%= med.batch_no %></td>
+                                    <td><strong><%= med.med_name %></strong></td>
+                                    
+                                    <!-- Only inline style here is for the Dynamic Date Logic -->
+                                    <td style="<%= new Date(med.expiry_date) < new Date() ? 'color: #d9534f; font-weight:bold;' : '' %>">
+                                        <%= med.expiry_date %>
+                                    </td>
+                                    
+                                    <td><%= med.quantity %></td>
+                                    <td><%= med.rack_no %></td>
+                                    <td>₹<%= med.consumer_cost %></td>
+                                    
+                                    <!-- Uses your .status classes -->
+                                    <td>
+                                        <% if (new Date(med.expiry_date) < new Date()) { %>
+                                            <span class="status out-of-stock">Expired</span>
+                                        <% } else if (med.quantity < 10) { %>
+                                            <span class="status low-stock">Low Stock</span>
+                                        <% } else { %>
+                                            <span class="status in-stock">In Stock</span>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 20px;">No stock records found.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>
