@@ -351,3 +351,60 @@ app.post("/api/sell", async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+// 10. SHOW CUSTOMER PAGE (GET)
+app.get("/customer.html", (req, res) => {
+  res.redirect("/customer");
+});
+
+app.get("/customer", async (req, res) => {
+  try {
+    const filter = req.query.filter || "all";
+    let dateCondition = {};
+
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
+
+    if (filter === "today") {
+      dateCondition = {
+        sale_date: { [Sequelize.Op.gte]: startOfDay },
+      };
+    } else if (filter === "current-month") {
+      dateCondition = {
+        sale_date: { [Sequelize.Op.gte]: startOfMonth },
+      };
+    } else if (filter === "last-month") {
+      dateCondition = {
+        sale_date: {
+          [Sequelize.Op.gte]: startOfLastMonth,
+          [Sequelize.Op.lte]: endOfLastMonth,
+        },
+      };
+    }
+
+    // Fetch Sales with Customer and Medicine data
+    const sales = await Sale.findAll({
+      where: dateCondition,
+      include: [
+        { model: Customer, required: true },
+        { model: Medicine, required: false },
+      ],
+      order: [["sale_date", "DESC"]],
+    });
+
+    // Calculate Total Sales for the current view
+    const totalSales = sales.reduce((sum, sale) => sum + (sale.total_amount || 0), 0);
+
+    res.render("customer", {
+      sales: sales,
+      filter: filter,
+      totalSales: totalSales,
+    });
+  } catch (err) {
+    console.error("Error loading customer page:", err);
+    res.send("Error loading customer page: " + err.message);
+  }
+});

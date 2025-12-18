@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/medicine.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+    <title>PharmaStock | Customer Records</title>
+    <style>
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .btn-filter {
+            padding: 10px 20px;
+            border: 1px solid #3d5a80;
+            background-color: white;
+            color: #3d5a80;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-filter:hover, .btn-filter.active {
+            background-color: #3d5a80;
+            color: white;
+        }
+        .total-sales-banner {
+            background-color: #293241;
+            color: #e0fbfc;
+            padding: 15px 40px;
+            border-radius: 50px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            width: fit-content;
+            min-width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="/view-stock">Stock</a>
+        <a href="/customer">Customer</a>
+        <a href="payment.html">Payment</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="sales.html">Sales</a>
+        <a href="account.html">Account</a>
+        <a href="account.html">
+          <img src="/assets/account-symbol.svg" alt="account-symbol" />
+        </a>
+      </div>
+    </div>
+
+    <main style="padding-top: 140px; width: 90%; max-width: 1400px; margin: 0 auto;">
+        <h1>Customer Sales Records</h1>
+        
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <a href="/customer?filter=all" class="btn-filter <%= filter === 'all' ? 'active' : '' %>">All Records</a>
+            <a href="/customer?filter=last-month" class="btn-filter <%= filter === 'last-month' ? 'active' : '' %>">Last Month</a>
+            <a href="/customer?filter=current-month" class="btn-filter <%= filter === 'current-month' ? 'active' : '' %>">Current Month</a>
+            <a href="/customer?filter=today" class="btn-filter <%= filter === 'today' ? 'active' : '' %>">Today</a>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container" style="width: 100%;">
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>Cust ID</th>
+                        <th>Customer Name</th>
+                        <th>Phone No</th>
+                        <th>Created At</th>
+                        <th>Medicine Price (Total)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(sales.length > 0) { %>
+                        <% sales.forEach(sale => { %>
+                            <tr>
+                                <td><%= sale.customer ? sale.customer.cust_id : 'N/A' %></td>
+                                <td><strong><%= sale.customer ? sale.customer.cust_name : 'Unknown' %></strong></td>
+                                <td><%= sale.customer ? sale.customer.cust_phone : '-' %></td>
+                                <td><%= sale.customer ? new Date(sale.customer.created_at).toLocaleDateString() : '-' %></td>
+                                <td>₹<%= sale.total_amount ? sale.total_amount.toFixed(2) : '0.00' %></td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 20px;">No records found for this period.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Total Sales -->
+        <div class="total-sales-banner">
+            Total Sales (<%= filter.replace('-', ' ').toUpperCase() %>): ₹<%= totalSales.toFixed(2) %>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer">
+        <a href="about.html">About</a>
+        <a href="help.html">Help Center</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="policy.html">Privacy Policy</a>
+        <a href="email.html">Email</a>
+      </div>
+      <div class="socials">
+        <img src="/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>
