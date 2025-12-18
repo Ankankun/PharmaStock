@@ -243,6 +243,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // D. GENERATE RECEIPT
+  const btnReceipt = document.querySelector(".btn-receipt");
+  if (btnReceipt) {
+    btnReceipt.addEventListener("click", function () {
+      // 1. Validate Cart
+      if (billItems.length === 0) {
+        alert("Cart is empty! Add items first.");
+        return;
+      }
+
+      // 2. Validate Customer Details
+      const custName = document.getElementById("customer-name").value.trim();
+      const custPhone = document.getElementById("customer-phone").value.trim();
+      const doctorName = document.getElementById("doctor-name").value.trim();
+
+      if (!custName || !custPhone) {
+        alert("Please enter Customer Name and Phone Number.");
+        return;
+      }
+
+      // 3. Prepare Data Payload
+      const payload = {
+        customer: {
+          name: custName,
+          phone: custPhone,
+          doctor: doctorName,
+        },
+        items: billItems,
+      };
+
+      // 4. Send to Server
+      fetch("/api/sell", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("✅ Sale Successful! Stock Updated.");
+            // Clear everything
+            window.location.reload();
+          } else {
+            alert("❌ Error: " + data.message);
+          }
+        })
+        .catch((err) => {
+          console.error("Error processing sale:", err);
+          alert("Error processing sale.");
+        });
+    });
+  }
+
   // Helper: Update Grand Total
   function updateGrandTotal() {
     let total = 0;
