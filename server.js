@@ -261,3 +261,7 @@ app.get("/api/medicine/:batch", async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+
+
