@@ -47,10 +47,10 @@
             
             <div class="view-stock-header">
                 <h1>Current Inventory</h1>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search..." id="searchInput">
-                    <button type="button" class="btn-search">Search</button>
-                </div>
+                <form class="search-bar" action="/view-stock" method="GET">
+                    <input type="text" name="search" placeholder="Search Name, Batch, Rack..." value="<%= typeof search !== 'undefined' ? search : '' %>">
+                    <button type="submit" class="btn-search">Search</button>
+                </form>
             </div>
 
             <div class="table-container">
