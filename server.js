@@ -3,6 +3,12 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const Sequelize = require("sequelize");
 
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+
+
+
+
 // Initialize App
 const app = express();
 const PORT = 3000;
@@ -261,4 +267,87 @@ app.get("/api/medicine/:batch", async (req, res) => {
     console.error("API Error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+
+//login signup - soumik
+app.use(
+  session({
+    secret: "supersecretkey",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.post("/signup", async (req, res) => {
+  try {
+    const { email, password, first_name, last_name, phone } = req.body;
+
+    // Check if user already exists
+    const existingUser = await ShopOwner.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).send("User already exists");
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new shop owner
+    await ShopOwner.create({
+      email,
+      password: hashedPassword,
+      first_name,
+      last_name,
+      phone,
+    });
+
+    res.send("Signup successful");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Signup error");
+  }
+});
+
+//login
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user
+    const user = await ShopOwner.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).send("Invalid email or password");
+    }
+
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Invalid email or password");
+    }
+
+    // Store session
+    req.session.userId = user.shop_owner_id;
+
+    res.redirect("/view-stock");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Login error");
+  }
+});
+
+
+//middleware
+function isAuthenticated(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+
+//logout
+app.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/login");
+  });
 });
