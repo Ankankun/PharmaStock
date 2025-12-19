@@ -6,20 +6,15 @@ const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 
-
-
-
 // Initialize App
 const app = express();
 const PORT = 3000;
 
 // Middleware (Allows us to read form data)
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // Add this to parse JSON bodies
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
-
-
 
 //middlewares
 app.use(
@@ -30,14 +25,12 @@ app.use(
   })
 );
 
-
-
 //
 // -----------------------------------------
 // DATABASE CONNECTION
 // -----------------------------------------
 // using your password from the previous snippet
-const sequelize = new Sequelize("pharmastock", "root", "", {
+const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
   host: "localhost",
   dialect: "mysql",
   logging: false, // Set to true to see raw SQL queries
@@ -106,6 +99,7 @@ const Sale = sequelize.define("sale", {
   quantity_sold: { type: Sequelize.INTEGER },
   selling_price: { type: Sequelize.FLOAT },
   total_amount: { type: Sequelize.FLOAT },
+  doctor_name: { type: Sequelize.STRING }, // Added to store Prescribed By
   sale_date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
 });
 
@@ -151,7 +145,7 @@ sequelize
 
 // 1. HOME REDIRECT
 app.get("/", (req, res) => {
-  res.redirect("/view-stock");
+  res.redirect("/signup");
 });
 
 // 2. SHOW ADD STOCK PAGE
@@ -162,8 +156,24 @@ app.get("/add-stock", (req, res) => {
 // 3. SHOW VIEW STOCK PAGE
 app.get("/view-stock", async (req, res) => {
   try {
-    const medicines = await Medicine.findAll();
-    res.render("view-stock", { medicines: medicines });
+    const searchQuery = req.query.search;
+    let options = {};
+
+    if (searchQuery) {
+      options = {
+        where: {
+          [Sequelize.Op.or]: [
+            { med_name: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+            { batch_no: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+            { rack_no: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+            { generic_name: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+          ],
+        },
+      };
+    }
+
+    const medicines = await Medicine.findAll(options);
+    res.render("view-stock", { medicines: medicines, search: searchQuery });
   } catch (err) {
     console.error(err);
     res.send("Error loading stock");
@@ -283,20 +293,19 @@ app.get("/api/medicine/:batch", async (req, res) => {
   }
 });
 
-
 //login signup - soumik
 
-
 app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/login.html"));
+  res.render("login", { error: null });
 });
 
 app.get("/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/signup.html"));
+  res.render("signup");
 });
 
-
-
+app.get("/register", (req, res) => {
+  res.render("register");
+});
 
 app.post("/signup", async (req, res) => {
   try {
@@ -320,7 +329,7 @@ app.post("/signup", async (req, res) => {
       phone,
     });
 
-    res.send("Signup successful");
+    res.redirect("/register");
   } catch (err) {
     console.error(err);
     res.status(500).send("Signup error");
@@ -335,13 +344,13 @@ app.post("/login", async (req, res) => {
     // Find user
     const user = await ShopOwner.findOne({ where: { email } });
     if (!user) {
-      return res.status(401).send("Invalid email or password");
+      return res.render("login", { error: "Invalid email or password" });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).send("Invalid email or password");
+      return res.render("login", { error: "Invalid email or password" });
     }
 
     // Store session
@@ -354,7 +363,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
 //middleware
 function isAuthenticated(req, res, next) {
   if (req.session.userId) {
@@ -364,10 +372,138 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-
 //logout
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/login");
   });
+});
+
+// 9. API: PROCESS SALE (Handle Receipt Generation)
+app.post("/api/sell", async (req, res) => {
+  const t = await sequelize.transaction(); // Start a transaction
+
+  try {
+    const { customer, items } = req.body;
+
+    // 1. Create Customer Record
+    const newCustomer = await Customer.create(
+      {
+        cust_name: customer.name,
+        cust_phone: customer.phone,
+        // shop_owner_id: 1 // Optional: Add if you have auth
+      },
+      { transaction: t }
+    );
+
+    // 2. Process Each Item
+    for (const item of items) {
+      // Find the medicine to update stock
+      const med = await Medicine.findByPk(item.id, { transaction: t });
+
+      if (!med) {
+        throw new Error(`Medicine ID ${item.id} not found`);
+      }
+
+      if (med.quantity < item.qty) {
+        throw new Error(`Insufficient stock for ${med.med_name}`);
+      }
+
+      // Calculate new quantity and status
+      const newQty = med.quantity - item.qty;
+      let status = "Available";
+      if (newQty === 0) status = "Out of Stock";
+      else if (newQty < 10) status = "Low Stock";
+
+      // Update Medicine
+      await med.update(
+        {
+          quantity: newQty,
+          stock_status: status,
+        },
+        { transaction: t }
+      );
+
+      // Create Sale Record
+      await Sale.create(
+        {
+          cust_id: newCustomer.cust_id,
+          med_id: med.med_id,
+          batch_no: med.batch_no,
+          quantity_sold: item.qty,
+          selling_price: item.price,
+          total_amount: item.total,
+          doctor_name: customer.doctor,
+        },
+        { transaction: t }
+      );
+    }
+
+    // Commit the transaction if all good
+    await t.commit();
+    console.log("✅ Sale Processed Successfully!");
+    res.json({ success: true, message: "Sale recorded successfully!" });
+  } catch (err) {
+    // Rollback if any error occurs
+    await t.rollback();
+    console.error("❌ Sale Error:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 10. SHOW CUSTOMER PAGE (GET)
+app.get("/customer.html", (req, res) => {
+  res.redirect("/customer");
+});
+
+app.get("/customer", async (req, res) => {
+  try {
+    const filter = req.query.filter || "all";
+    let dateCondition = {};
+
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
+
+    if (filter === "today") {
+      dateCondition = {
+        sale_date: { [Sequelize.Op.gte]: startOfDay },
+      };
+    } else if (filter === "current-month") {
+      dateCondition = {
+        sale_date: { [Sequelize.Op.gte]: startOfMonth },
+      };
+    } else if (filter === "last-month") {
+      dateCondition = {
+        sale_date: {
+          [Sequelize.Op.gte]: startOfLastMonth,
+          [Sequelize.Op.lte]: endOfLastMonth,
+        },
+      };
+    }
+
+    // Fetch Sales with Customer and Medicine data
+    const sales = await Sale.findAll({
+      where: dateCondition,
+      include: [
+        { model: Customer, required: true },
+        { model: Medicine, required: false },
+      ],
+      order: [["sale_date", "DESC"]],
+    });
+
+    // Calculate Total Sales for the current view
+    const totalSales = sales.reduce((sum, sale) => sum + (sale.total_amount || 0), 0);
+
+    res.render("customer", {
+      sales: sales,
+      filter: filter,
+      totalSales: totalSales,
+    });
+  } catch (err) {
+    console.error("Error loading customer page:", err);
+    res.send("Error loading customer page: " + err.message);
+  }
 });
