@@ -11,14 +11,6 @@ const session = require("express-session");
 const app = express();
 const PORT = 3000;
 
-<<<<<<< HEAD
-// Middleware (Allows us to read form data)
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
-app.set("view engine", "ejs");
-//middlewares
-=======
 // Static Files & View Engine
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
@@ -28,7 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Session Configuration
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
 app.use(
   session({
     secret: "supersecretkey",
@@ -37,16 +28,6 @@ app.use(
   })
 );
 
-<<<<<<< HEAD
-
-
-//
-// -----------------------------------------
-// DATABASE CONNECTION
-// -----------------------------------------
-// using your password from the previous snippet
-const sequelize = new Sequelize("pharmastock", "root", "", {
-=======
 // Authentication Middleware
 async function isAuthenticated(req, res, next) {
   if (req.session.userId) {
@@ -71,8 +52,7 @@ async function isAuthenticated(req, res, next) {
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
 // =========================================
-const sequelize = new Sequelize("pharmastock", "root", "dhar98315", {
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
+const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
@@ -139,10 +119,7 @@ const Sale = sequelize.define("sale", {
   quantity_sold: { type: Sequelize.INTEGER },
   selling_price: { type: Sequelize.FLOAT },
   total_amount: { type: Sequelize.FLOAT },
-<<<<<<< HEAD
-=======
   doctor_name: { type: Sequelize.STRING },
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
   sale_date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
 });
 
@@ -170,11 +147,7 @@ Sale.belongsTo(Customer, { foreignKey: "cust_id" });
 
 // Landing Page
 app.get("/", (req, res) => {
-<<<<<<< HEAD
-  res.redirect("/view-stock");
-=======
   res.render("index");
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
 });
 
 // Login
@@ -370,10 +343,6 @@ app.post("/update", isAuthenticated, async (req, res) => {
 // Stock Management
 app.get("/view-stock", isAuthenticated, async (req, res) => {
   try {
-<<<<<<< HEAD
-    const medicines = await Medicine.findAll();
-    res.render("view-stock", { medicines: medicines });
-=======
     const searchQuery = req.query.search;
     let whereClause = { shop_owner_id: req.session.userId };
 
@@ -392,7 +361,6 @@ app.get("/view-stock", isAuthenticated, async (req, res) => {
 
     const medicines = await Medicine.findAll({ where: whereClause });
     res.render("view-stock", { medicines: medicines, search: searchQuery });
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
   } catch (err) {
     console.error(err);
     res.send("Error loading stock");
@@ -556,96 +524,6 @@ app.get("/api/medicine/:batch", isAuthenticated, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-
-//login signup - soumik
-
-
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/login.html"));
-});
-
-app.get("/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/signup.html"));
-});
-
-
-
-
-app.post("/signup", async (req, res) => {
-  try {
-    const { email, password, first_name, last_name, phone } = req.body;
-
-    // Check if user already exists
-    const existingUser = await ShopOwner.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(400).send("User already exists");
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new shop owner
-    await ShopOwner.create({
-      email,
-      password: hashedPassword,
-      first_name,
-      last_name,
-      phone,
-    });
-
-    res.send("Signup successful");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Signup error");
-  }
-});
-
-//login
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Find user
-    const user = await ShopOwner.findOne({ where: { email } });
-    if (!user) {
-      return res.status(401).send("Invalid email or password");
-    }
-
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).send("Invalid email or password");
-    }
-
-    // Store session
-    req.session.userId = user.shop_owner_id;
-
-    res.redirect("/view-stock");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Login error");
-  }
-});
-
-
-//middleware
-function isAuthenticated(req, res, next) {
-  if (req.session.userId) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-}
-
-
-//logout
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("/login");
-  });
-});
-=======
 app.post("/api/sell", isAuthenticated, async (req, res) => {
   const t = await sequelize.transaction();
   try {
@@ -717,4 +595,3 @@ sequelize
   .catch((err) => {
     console.error("❌ Database Connection Error:", err);
   });
->>>>>>> ae241718a2ed8e91abd6eb89a61508e3eacbb2f2
