@@ -316,4 +316,24 @@ document.addEventListener("DOMContentLoaded", function () {
       row.cells[0].innerText = index + 1;
     });
   }
+
+  // =========================================
+  // 4. NAVBAR DROPDOWN LOGIC
+  // =========================================
+  const accountToggle = document.querySelector(".account-toggle");
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+
+  if (accountToggle && dropdownMenu) {
+    accountToggle.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent default anchor behavior
+      dropdownMenu.classList.toggle("show");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!accountToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove("show");
+      }
+    });
+  }
 });

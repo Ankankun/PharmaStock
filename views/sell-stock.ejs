@@ -14,20 +14,42 @@
     <!-- Navbar Section -->
     <div class="navbar">
       <div class="logo">
-        <a href="index.html">
+        <a href="/">
           <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
         </a>
       </div>
       <div class="menu-items">
+        <a href="/">Home</a>
         <a href="/view-stock">Stock</a>
-        <a href="customer.html">Customer</a>
-        <a href="payment.html">Payment</a>
-        <a href="feedback.html">Feedback</a>
-        <a href="sales.html">Sales</a>
-        <a href="account.html">Account</a>
-        <a href="account.html">
-          <img src="/assets/account-symbol.svg" alt="account-symbol" />
-        </a>
+        <a href="/customer">Customer</a>
+        <a href="/payment">Payment</a>
+        <a href="/feedback">Feedback</a>
+        <a href="/sell">Sales</a>
+        <a href="/account">Account</a>
+        <div class="account-dropdown">
+          <a href="#" class="account-toggle">
+            <img src="/assets/account-symbol.svg" alt="account-symbol" />
+          </a>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">
+              <strong><%= user.first_name %></strong>
+              <small><%= user.shop_name || 'My Shop' %></small>
+            </div>
+            <div class="dropdown-body">
+              <p><%= user.email %></p>
+              <p><%= user.phone %></p>
+            </div>
+            <div class="dropdown-footer">
+              <a
+                href="/account"
+                class="btn-logout-dropdown"
+                style="background-color: #3d5a80; margin-bottom: 5px"
+                >Profile</a
+              >
+              <a href="/logout" class="btn-logout-dropdown">Logout</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
