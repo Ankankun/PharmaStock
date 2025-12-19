@@ -19,11 +19,25 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
+
+
+//middlewares
+app.use(
+  session({
+    secret: "supersecretkey",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+
+//
 // -----------------------------------------
 // DATABASE CONNECTION
 // -----------------------------------------
 // using your password from the previous snippet
-const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
+const sequelize = new Sequelize("pharmastock", "root", "", {
   host: "localhost",
   dialect: "mysql",
   logging: false, // Set to true to see raw SQL queries
@@ -271,13 +285,19 @@ app.get("/api/medicine/:batch", async (req, res) => {
 
 
 //login signup - soumik
-app.use(
-  session({
-    secret: "supersecretkey",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+
+
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/login.html"));
+});
+
+app.get("/signup", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/signup.html"));
+});
+
+
+
+
 app.post("/signup", async (req, res) => {
   try {
     const { email, password, first_name, last_name, phone } = req.body;
