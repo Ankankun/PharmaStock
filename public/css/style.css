@@ -163,6 +163,10 @@ main.hero {
   margin-bottom: 40px;
 }
 
+.cta-buttons a {
+  text-decoration: none;
+}
+
 .btn-work,
 .btn-start {
   padding: 14px 28px;
