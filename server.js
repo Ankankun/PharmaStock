@@ -52,7 +52,7 @@ async function isAuthenticated(req, res, next) {
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
 // =========================================
-const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
+const sequelize = new Sequelize("pharmastock", "root", "dhar98315", {
   host: "localhost",
   dialect: "mysql",
   logging: false,

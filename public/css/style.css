@@ -381,7 +381,7 @@ textarea {
 }
 
 .login-form .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   text-align: left;
 }
 
@@ -411,7 +411,9 @@ textarea {
 }
 
 .btn-login {
-  width: 100%;
+  width: 50%;
+  display: block;
+  margin: 32px auto 24px auto;
   background-color: #97c0d8; /* Using the lighter blue from palette for the button base */
   color: #293241;
   padding: 14px;
@@ -420,8 +422,6 @@ textarea {
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  margin-bottom: 24px;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -601,7 +601,7 @@ form.register-form {
 }
 
 .login-form .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   text-align: left;
 }
 
@@ -631,7 +631,9 @@ form.register-form {
 }
 
 .btn-login {
-  width: 100%;
+  width: 50%;
+  display: block;
+  margin: 32px auto 24px auto;
   background-color: #97c0d8; /* Using the lighter blue from palette for the button base */
   color: #293241;
   padding: 14px;
@@ -640,8 +642,6 @@ form.register-form {
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  margin-bottom: 24px;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -1307,3 +1307,4 @@ input[readonly]:focus {
   background-color: #293241;
   margin-left: 10px;
 }
+
