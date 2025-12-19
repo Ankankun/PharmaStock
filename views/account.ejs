@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/medicine.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+
+    <title>PharmaStock | Account</title>
+  </head>
+
+  <body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="/assets/Pharma Stock Logo svg.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="menu-items">
+        <a href="/view-stock">Stock</a>
+        <a href="/customer">Customer</a>
+        <a href="/payment">Payment</a>
+        <a href="/feedback">Feedback</a>
+        <a href="/sell">Sales</a>
+        <a href="/account">Account</a>
+        <div class="account-dropdown">
+          <a href="#" class="account-toggle">
+            <img src="/assets/account-symbol.svg" alt="account-symbol" />
+          </a>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">
+              <strong><%= user.first_name %></strong>
+              <small><%= user.shop_name || 'My Shop' %></small>
+            </div>
+            <div class="dropdown-body">
+              <p><%= user.email %></p>
+              <p><%= user.phone %></p>
+            </div>
+            <div class="dropdown-footer">
+              <a
+                href="/account"
+                class="btn-logout-dropdown"
+                style="background-color: #3d5a80; margin-bottom: 5px"
+                >Profile</a
+              >
+              <a href="/logout" class="btn-logout-dropdown">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Section -->
+    <main class="register-wrapper">
+      <div class="register-card account-card">
+        <h1>My Profile</h1>
+
+        <div class="account-details">
+          <div class="detail-item">
+            <span class="detail-label">Full Name</span>
+            <div class="detail-value">
+              <%= user.first_name %> <%= user.middle_name ? user.middle_name + ' ' : '' %><%=
+              user.last_name %>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Email</span>
+            <div class="detail-value"><%= user.email %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Phone Number</span>
+            <div class="detail-value"><%= user.phone %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Alt Phone</span>
+            <div class="detail-value"><%= user.alt_phone || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Shop Name</span>
+            <div class="detail-value"><%= user.shop_name || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">GST No</span>
+            <div class="detail-value"><%= user.gst_no || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">City</span>
+            <div class="detail-value"><%= user.shop_city || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">State</span>
+            <div class="detail-value"><%= user.shop_state || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Country</span>
+            <div class="detail-value"><%= user.country || '-' %></div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Pincode</span>
+            <div class="detail-value"><%= user.shop_pin || '-' %></div>
+          </div>
+        </div>
+
+        <a href="/update" class="btn-update">Update Profile</a>
+        <a href="/logout" class="btn-update btn-logout">Logout</a>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <a href="/about">About</a>
+        <a href="/help">Help Center</a>
+        <a href="/tos">Terms of Service</a>
+        <a href="/policy">Privacy Policy</a>
+        <a href="/email">Email</a>
+      </div>
+      <div class="socials">
+        <img src="/assets/Social-Instagram.svg" alt="Instagram-icon" />
+        <img src="/assets/Social-fb.svg" alt="Facebook-icon" />
+        <img src="/assets/Social-twitter.svg" alt="Twitter-icon" />
+      </div>
+    </footer>
+  </body>
+</html>
