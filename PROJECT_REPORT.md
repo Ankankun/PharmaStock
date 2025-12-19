@@ -77,6 +77,58 @@ _(Suggested Diagram: A high-level architecture diagram showing the flow of data)
 **Data Flow:**
 `User (Browser) <--> HTTP Requests <--> Node.js/Express Server <--> Sequelize ORM <--> MySQL Database`
 
+```mermaid
+graph TD
+    %% Styles
+    classDef client fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000;
+    classDef server fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
+    classDef db fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000;
+    classDef flow stroke:#333,stroke-width:2px;
+
+    subgraph Client_Layer [Client Layer]
+        direction TB
+        Browser[("💻 Web Browser<br>(Chrome / Edge)")]:::client
+        UI["HTML / CSS / EJS<br>User Interface"]:::client
+    end
+
+    subgraph Application_Layer [Application Layer]
+        direction TB
+        NodeServer[("🚀 Node.js Server")]:::server
+        Express["Express.js Framework"]:::server
+
+        subgraph Modules [Core Modules]
+            Auth["🔐 Authentication<br>(Login / Signup)"]:::server
+            Logic["⚙️ Business Logic<br>(FEFO Algo / Stock Updates)"]:::server
+            Routes["🔀 Routing<br>(API & Views)"]:::server
+        end
+    end
+
+    subgraph Data_Layer [Data Layer]
+        direction TB
+        ORM["Sequelize ORM<br>(Data Abstraction)"]:::db
+        MySQL[("🗄️ MySQL Database")]:::db
+
+        subgraph Tables [Stored Data]
+            Users[User Data]:::db
+            Inventory[Inventory]:::db
+            Sales[Sales Records]:::db
+            Customers[Customer History]:::db
+        end
+    end
+
+    %% Relationships
+    Browser <==>|"HTTP Requests<br>(GET / POST)"| NodeServer
+    NodeServer --- Express
+    Express --> Modules
+
+    Modules <==>|"Queries / Transactions"| ORM
+    ORM <==>|"SQL Commands"| MySQL
+    MySQL --- Tables
+
+    %% Link Styles
+    linkStyle default stroke:#333,stroke-width:1px;
+```
+
 ---
 
 ## 4. Project Methodology
@@ -153,16 +205,57 @@ _(Insert Screenshot of Schema Diagram here)_
 
 ## 7. Expected Result
 
-### 7.1 User Interface
+The implementation of Pharma Stock results in a fully functional, web-based inventory management system. The user interface is designed to be responsive, intuitive, and focused on minimizing clicks for high-frequency tasks like selling and searching.
 
-The application provides a clean, intuitive interface for daily pharmacy operations.
+### 7.1 User Interfaces
 
-_(Suggested Screenshots to include in the final report)_
+#### 1. Landing Page
 
-1.  **Login/Signup Page:** Secure entry point with validation.
-2.  **Dashboard / View Stock:** A searchable table showing all medicines, color-coded or sortable by expiry.
-3.  **Sell Stock Page:** A Point-of-Sale interface where the chemist enters a batch number, sees availability, and generates a bill.
-4.  **Customer History:** A log of past sales for reference.
+The landing page serves as the public face of the application. It features a clean, modern design with a clear call-to-action ("Get Started").
+
+- **Functionality:** It provides an overview of the platform's capabilities. If a user is already logged in, clicking "Get Started" intelligently redirects them to their dashboard instead of the login screen.
+- _(Insert Screenshot of Landing Page here)_
+
+#### 2. Authentication (Login & Signup)
+
+Security is paramount. The system employs a secure authentication mechanism using encrypted passwords.
+
+- **Functionality:** Users can create a new account or log in to an existing one. The forms include validation to ensure data integrity (e.g., password matching). Upon successful login, a session is created, isolating the user's data from others.
+- _(Insert Screenshot of Login Page here)_
+
+#### 3. Inventory Dashboard (View Stock)
+
+This is the central hub for the shop owner. It displays a comprehensive list of all medicines currently in stock.
+
+- **Functionality:**
+  - **Search:** A real-time search bar allows users to filter medicines by Name, Batch Number, or Generic Name.
+  - **Expiry Tracking:** The table clearly lists expiration dates, allowing the pharmacist to identify stock that needs to be pushed.
+  - **Stock Status:** Visual indicators show if an item is "Available" or "Out of Stock".
+- _(Insert Screenshot of View Stock Dashboard here)_
+
+#### 4. Add Medicine Interface
+
+A dedicated form for entering new inventory into the system.
+
+- **Functionality:** This interface captures critical details often missed by simple ledgers, such as **Batch Number**, **Rack Number**, and **Expiry Date**. It enforces the "Prescription Required" flag, ensuring regulatory compliance.
+- _(Insert Screenshot of Add Medicine Form here)_
+
+#### 5. Point of Sale (Sell Stock)
+
+The core operational screen designed for speed during customer interactions.
+
+- **Functionality:**
+  - **Batch Lookup:** The chemist enters a batch number to instantly retrieve medicine details (Price, Expiry, Availability).
+  - **Bill Generation:** Items are added to a dynamic bill table which calculates the grand total automatically.
+  - **Stock Deduction:** Upon confirming the sale, the system automatically deducts the specific quantity from the selected batch, ensuring the inventory count is always accurate.
+- _(Insert Screenshot of Sell Stock Page here)_
+
+#### 6. Customer History & Sales Log
+
+A record-keeping interface that tracks business performance.
+
+- **Functionality:** This page lists all past transactions, showing which customer bought what medicine and when. It is essential for tracking revenue and understanding sales trends.
+- _(Insert Screenshot of Customer History Page here)_
 
 ### 7.2 Functional Outcomes
 
@@ -203,3 +296,7 @@ The current version of Pharma Stock establishes a robust foundation. Future iter
 3.  **Sequelize ORM Manual:** https://sequelize.org/
 4.  **MDN Web Docs (HTML/CSS/JS):** https://developer.mozilla.org/
 5.  **MySQL Reference Manual:** https://dev.mysql.com/doc/
+
+```
+
+```
