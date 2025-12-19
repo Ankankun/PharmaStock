@@ -52,7 +52,7 @@ async function isAuthenticated(req, res, next) {
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
 // =========================================
-const sequelize = new Sequelize("pharmastock", "root", "dhar98315", {
+const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
@@ -152,6 +152,9 @@ app.get("/", (req, res) => {
 
 // Login
 app.get("/login", (req, res) => {
+  if (req.session.userId) {
+    return res.redirect("/view-stock");
+  }
   res.render("login", { error: null });
 });
 
@@ -179,6 +182,9 @@ app.post("/login", async (req, res) => {
 
 // Signup
 app.get("/signup", (req, res) => {
+  if (req.session.userId) {
+    return res.redirect("/view-stock");
+  }
   res.render("signup");
 });
 
