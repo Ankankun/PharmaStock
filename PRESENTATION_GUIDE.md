@@ -2,7 +2,7 @@
 
 This document serves as a reference for the 10-minute presentation of the Pharma Stock application. It is structured for a 16:9 slide format.
 
-## Presentation Structure (10-12 Minutes / 14 Slides)
+## Presentation Structure (10-12 Minutes / 15 Slides)
 
 ### Slide 1: Title Slide
 
@@ -110,7 +110,19 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 10: User Journey - Step 2: The Sale
+### Slide 10: User Journey - Step 2: The Dashboard
+
+- **Title:** Real-Time Inventory Overview
+- **Content:**
+  - **Instant Visibility:** See all stock across all racks in one view.
+  - **Smart Filters:** Search instantly by Medicine Name, Batch ID, or Rack Number.
+  - **Status Alerts:** Automatic "Low Stock" and "Expired" tags highlight urgent items.
+- **Visual:** Screenshot of the View Stock page (`view-stock.ejs`) showing the table with status badges.
+- **Speaker Note:** "Once stock is added, the Dashboard becomes the command center. It instantly flags expired batches in red and warns about low stock, so the owner knows exactly what's happening on their shelves."
+
+---
+
+### Slide 11: User Journey - Step 3: The Sale
 
 - **Title:** Intelligent Point of Sale
 - **Content:**
@@ -122,7 +134,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 11: User Journey - Step 3: Insights
+### Slide 12: User Journey - Step 4: Insights
 
 - **Title:** Data-Driven Decisions
 - **Content:**
@@ -134,7 +146,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 12: Technology Stack
+### Slide 13: Technology Stack
 
 - **Title:** Built for Scale
 - **Content:**
@@ -147,7 +159,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 13: Future Roadmap
+### Slide 14: Future Roadmap
 
 - **Title:** What's Next?
 - **Content:**
@@ -159,7 +171,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 14: Conclusion
+### Slide 15: Conclusion
 
 - **Title:** Summary
 - **Content:**
