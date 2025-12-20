@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How It Works | Pharma Stock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #e0fbfc;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #293241;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #eef5fb;
+            border-radius: 6px;
+        }
+
+        .step h2 {
+            margin-top: 0;
+            color: #0a4b78;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #777;
+        }
+        .screenshot {
+            display: block;
+            max-width: 700px;
+            width: 100%;
+            margin: 18px auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.02);
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>How Does Pharma Stock Work?</h1>
+    <div class="subtitle">
+        A step-by-step overview of the system workflow
+    </div>
+
+    <div class="step">
+        <h2>Step 1: User Signup & Login</h2>
+        <p>
+            The pharmacy owner creates an account and logs in securely. Each user
+            gets a private workspace where their inventory and sales data are
+            isolated from others.
+        </p>
+
+        <img src="/assets/signup.png" alt="Login Page" class="screenshot">
+        <div class="caption">Signup Interface</div>
+        <img src="/assets/login.png" alt="Login Page" class="screenshot">
+        <div class="caption">Login Interface</div>
+
+    </div>
+
+    <div class="step">
+    <h2>Step 2: Profile & Account Management</h2>
+    <p>
+        Pharma Stock provides a dedicated profile section where users can manage
+        their account-related information and ensure secure access to the system.
+        This section helps users maintain updated details and control their session.
+    </p>
+
+    <ul>
+        <li><strong>View Profile:</strong> Users can view their registered account and shop details.</li>
+        <li><strong>Update Profile:</strong> Basic information such as name or contact details can be updated to keep records accurate.</li>
+        <li><strong>Account Security:</strong> Profile access is restricted to the logged-in user only.</li>
+        <li><strong>Logout:</strong> Users can securely log out to terminate their session, especially important on shared devices.</li>
+    </ul>
+
+        <img src="/assets/profile.png" alt="Login Page" class="screenshot">
+        <div class="caption">View Profile</div>
+        <img src="/assets/profile-update.png" alt="Login Page" class="screenshot">
+        <div class="caption">Update Your Profile</div>
+        <img src="/assets/logout.png" alt="Login Page" class="screenshot">
+        <div class="caption">logout</div>
+
+    <div class="note">
+        Keeping profile information updated and logging out after use helps ensure
+        data security and prevents unauthorized access.
+    </div>
+</div>
+
+
+    <div class="step">
+        <h2>Step 3: Add Medicines to Inventory</h2>
+        <p>
+            Medicines are added with essential details such as batch number,
+            expiry date, quantity, and rack location. This batch-level entry
+            ensures accurate tracking and compliance.
+        </p>
+
+        <img src="/assets/add.png" alt="Login Page" class="screenshot">
+        <div class="caption">Add Medicines to Inventory</div>
+
+    </div>
+
+
+    <div class="step">
+        <h2>Step 4: Sell Medicines (FEFO Logic)</h2>
+        <p>
+            During billing, the system follows the FEFO (First Expired, First Out)
+            principle, ensuring that medicines nearing expiry are sold first,
+            reducing wastage and loss.
+        </p>
+
+        <img src="/assets/billing.png" alt="Login Page" class="screenshot">
+        <div class="caption">Generating Receipt</div>
+    </div>
+
+    <div class="step">
+        <h2>Step 5: Automatic Stock Update</h2>
+        <p>
+            Once a sale is completed, the system automatically deducts the sold
+            quantity from the correct batch and updates stock levels in real time.
+        </p>
+
+        <img src="/assets/inventory.png" alt="Login Page" class="screenshot">
+        <div class="caption">Inventory</div>
+    </div>
+
+    <div class="step">
+        <h2>Step 6: Sales History & Monitoring</h2>
+        <p>
+            All transactions are recorded and can be reviewed anytime. This helps
+            shop owners analyze sales trends, track customers, and manage inventory
+            efficiently.
+        </p>
+
+        <img src="/assets/customer-sale.png" alt="Login Page" class="screenshot">
+        <div class="caption">Sales History</div>
+    </div>
+
+    <footer>
+        © 2025 Pharma Stock. All Rights Reserved.
+    </footer>
+
+</div>
+
+</body>
+</html>

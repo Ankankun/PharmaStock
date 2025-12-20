@@ -52,7 +52,7 @@ async function isAuthenticated(req, res, next) {
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
 // =========================================
-const sequelize = new Sequelize("pharmastock", "root", "dhar98315", {
+const sequelize = new Sequelize("pharmastock", "root", "root123", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
@@ -595,3 +595,31 @@ sequelize
   .catch((err) => {
     console.error("❌ Database Connection Error:", err);
   });
+
+// terms of service page link
+app.get("/terms", (req, res) => {
+    res.render("terms");
+});
+
+//privacy page link
+app.get("/privacy", (req, res) => {
+    res.render("privacy");
+});
+
+
+//about page link
+app.get("/about", (req, res) => {
+    res.render("about");
+});
+
+
+//help page link
+app.get("/help", (req, res) => {
+    res.render("help");
+});
+
+
+//how does it work page link
+app.get("/how-does-it-work", (req, res) => {
+    res.render("how-does-it-work");
+});
