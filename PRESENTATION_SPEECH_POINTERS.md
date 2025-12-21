@@ -7,119 +7,114 @@
 
 ## 🎤 Role Allocation & Slide Breakdown
 
-| Member        | Role                              | Focus Area                                     | Slides Assigned    |
-| :------------ | :-------------------------------- | :--------------------------------------------- | :----------------- |
-| **Ankan**     | Team Lead, System Design, Routing | Architecture, MVC, Core Logic (FEFO), Roadmap  | 1, 4, 5, 6, 15, 16 |
-| **Soumadeep** | UI/UX Design, Basic Frontend      | Problem, Solution, Visual Layouts              | 2, 3, 10           |
-| **Tanima**    | Database Engineer                 | Schema, Relationships, Data Flow               | 7, 8               |
-| **Soumik**    | Security & Auth                   | Login/Signup, Encryption, Sessions, Tech Stack | 9, 14              |
-| **Abir**      | Frontend Scripting (JS)           | Interactivity, Calculations, Dynamic Behavior  | 11, 12, 13         |
+| Member        | Role                     | Focus Area                                  | Slides Assigned          |
+| :------------ | :----------------------- | :------------------------------------------ | :----------------------- |
+| **Ankan**     | Team Lead, System Design | Intro, Problem/Solution, Architecture, FEFO | 1, 2, 3, 4, 5, 6, 15, 16 |
+| **Tanima**    | Database Engineer        | Database Tables, Relationships, Data Flow   | 7, 8                     |
+| **Soumik**    | Security & Auth          | Login Security, Tech Stack                  | 9, 14                    |
+| **Soumadeep** | UI/UX Design             | User Journey (Visuals & Layouts)            | 10, 11, 12, 13 (Shared)  |
+| **Abir**      | Frontend Logic (JS)      | User Journey (Functionality & Scripting)    | 10, 11, 12, 13 (Shared)  |
 
 ---
 
-## 🗣️ Speech Pointers by Member
+## 🗣️ Speech Pointers (Simplified)
 
-### 1. Ankan (Introduction & System Architecture)
+### 1. Ankan (The Big Picture)
 
-- **Slide 1: Title Slide**
-  - "Good morning everyone. We are Team Pharma Stock. I am Ankan, and along with Tanima, Soumadeep, Soumik, and Abir, we have built a Smart Pharmacy Management System."
-  - "Our goal is simple: Stop Wastage, Prioritize Safety."
-- _(Hand over to Soumadeep for Context)_
-- _(Take back control after Slide 3)_
-- **Slide 4: The Core Innovation (FEFO)**
-  - "As the System Architect, I want to highlight our core logic. Unlike standard retail which uses FIFO, we implemented **FEFO (First Expired, First Out)**."
-  - "This logic is handled in our backend routing to ensure the oldest medicine is sold first."
-- **Slide 5: System Architecture**
-  - "We used a 3-tier architecture. The browser is the client, Node.js is our application server, and MySQL is our data layer."
-- **Slide 6: Methodology (MVC)**
-  - "I structured the project using the **MVC Pattern**. This separates our Data (Models), UI (Views), and Logic (Controllers/Routes), making the code clean and scalable."
-- _(Hand over to Tanima)_
-
-### 2. Soumadeep (The Problem & UI Design)
-
+- **Slide 1: Title**
+  - "Hi everyone, we are Team Pharma Stock. I'm Ankan, and this is my team: Tanima, Soumadeep, Soumik, and Abir."
+  - "We built a Smart Pharmacy System to stop medicine wastage."
 - **Slide 2: The Problem**
-  - "In our research, we found that pharmacies lose money because they can't track _expiry dates_ easily on paper or Excel."
-  - "It's a design flaw in current systems—they track quantity, not quality."
+  - "Pharmacies lose money because medicines expire on the shelf. Old systems track _how many_ pills you have, but not _when_ they expire."
 - **Slide 3: The Solution**
-  - "We designed Pharma Stock to be visual and intuitive. It's a digital assistant that tracks Batch Numbers specifically."
-- **Slide 10: User Journey - Inventory (Add Stock)**
-  - "I designed the 'Add Stock' interface to be clean but comprehensive. It forces the user to enter the Batch No and Rack No, ensuring the data is structured right from the start."
-- _(Hand over to Ankan)_
+  - "Our solution tracks the **Batch Number** and **Expiry Date**. It's like a smart assistant that tells the chemist what to sell."
+- **Slide 4: FEFO Logic (Important!)**
+  - "The most important part is **FEFO: First Expired, First Out**."
+  - "Unlike grocery stores that sell what came in first (FIFO), we sell what expires first. This saves money."
+- **Slide 5 & 6: Architecture & MVC**
+  - "We used a standard 3-part design: Browser, Server (Node.js), and Database (MySQL). We organized our code using MVC to keep it clean."
+  - _"Now, Tanima will explain our data."_
 
-### 3. Tanima (Database Design)
+### 2. Tanima (The Data)
 
 - **Slide 7: Database Design**
-  - "I was responsible for the Database Design. We used **MySQL** with **Sequelize ORM**."
-  - "The database is fully normalized. We have separate tables for `ShopOwners`, `Medicines`, `Customers`, and `Sales`."
-  - "We used One-to-Many relationships: One Shop Owner has many Medicines."
+  - "I designed the database using **MySQL**. It's structured and organized."
+  - "We have tables for **Shop Owners**, **Medicines**, **Customers**, and **Sales**."
+  - "Everything is linked. For example, every Medicine belongs to a specific Shop Owner."
 - **Slide 8: Data Flow**
-  - "Here you can see how data flows. When a user logs in, they access the `ShopOwner` table. When they sell, we update `Medicines`, create a `Sale` record, and link it to a `Customer` simultaneously."
-- _(Hand over to Soumik)_
+  - "This diagram shows how data moves. When you sell a medicine, the system updates the Stock table and adds a record to the Sales table at the same time."
+  - _"Next, Soumik will talk about security."_
 
-### 4. Soumik (Security & Authentication)
+### 3. Soumik (Security & Tech)
 
-- **Slide 9: Security & Multi-Tenancy**
-  - "My focus was on Security and Authentication. We didn't want Shop A to see Shop B's stock."
-  - "I implemented **Bcrypt** to hash passwords—so even we as developers can't see user passwords."
-  - "We use **Express-Sessions** to maintain a secure login state. If you try to access the dashboard without logging in, my middleware will kick you out."
-- **Slide 14: Technology Stack**
-  - "Our stack is built for scale: Node.js for the backend, MySQL for data integrity, and EJS for server-side rendering."
-- _(Hand over to Abir)_
+- **Slide 9: Security**
+  - "Security is key. We don't want Shop A to see Shop B's inventory."
+  - "I used **Bcrypt** to encrypt passwords. Even if someone hacks the database, they can't read the passwords."
+  - "We also use **Sessions** to make sure you must be logged in to see the dashboard."
+- **Slide 14: Tech Stack**
+  - "We used modern tools: **Node.js** for the backend, **MySQL** for the database, and **EJS** for the frontend pages."
+  - _"Now, Soumadeep and Abir will show you the User Journey."_
 
-### 5. Abir (Frontend Logic & Interactivity)
+### 4. Soumadeep & Abir (The User Journey - Tag Team)
 
-- **Slide 11: The Dashboard (Logic)**
-  - "I handled the frontend scripting (`script.js`). On the dashboard, my scripts automatically check dates."
-  - "If a medicine is expired, the row turns red. If it's expiring soon, it turns yellow. This gives instant visual feedback."
-- **Slide 12: The Sale (Dynamic Billing)**
-  - "The Sell Page is where the heavy lifting happens. I wrote the JavaScript to fetch medicine details via API when you type a Batch Number."
-  - "It calculates the total price dynamically in the browser before sending the data to the server."
-- **Slide 13: Insights**
-  - "We also track history. The system logs every sale so the shop owner can see exactly what happened yesterday or last month."
-- _(Hand over to Ankan for Conclusion)_
+_(Soumadeep covers the Look/Feel, Abir covers the Logic/Code)_
 
-### 6. Ankan (Conclusion)
+- **Slide 10: Adding Stock**
+  - **Soumadeep:** "I designed the 'Add Stock' page. It's simple and clean. I made sure there are fields for Batch Number and Rack Number so the inventory is organized."
+  - **Abir:** "And I added the logic. When you click 'Add', my script checks if the data is valid before sending it to the server."
+- **Slide 11: The Dashboard**
+  - **Soumadeep:** "This is the main dashboard. I used colors to make it easy to read—Red for danger, Green for safe."
+  - **Abir:** "My code runs in the background here. It checks today's date against the expiry date. If it's expired, it automatically turns the row Red."
+- **Slide 12: Selling (The Main Feature)**
+  - **Soumadeep:** "This is the Sell Page. I designed it to be fast because shops are busy. You just type the Batch Number."
+  - **Abir:** "Exactly. When you type the batch, my script instantly fetches the price and expiry date. It calculates the total bill automatically without reloading the page."
+- **Slide 13: History**
+  - **Soumadeep:** "Finally, we have the History page. It shows a clear list of all past customers."
+  - **Abir:** "This data comes from the database, helping the shop owner track their daily sales."
+  - _"Back to Ankan for the conclusion."_
 
-- **Slide 15: Roadmap**
-  - "Looking ahead, we plan to add AI OCR scanning and SMS integration."
+### 5. Ankan (Conclusion)
+
+- **Slide 15: Future Plans**
+  - "In the future, we want to add AI scanning so you can just take a photo of the medicine strip to add it."
 - **Slide 16: Summary**
-  - "To conclude, Pharma Stock saves money, time, and lives. Thank you."
+  - "To sum up: Pharma Stock saves money and keeps patients safe. Thank you!"
 
 ---
 
-## ❓ Probable Q&A Session (By Role)
+## ❓ Simple Q&A Guide
 
 ### For Tanima (Database)
 
-- **Q:** Why did you choose MySQL (SQL) over MongoDB (NoSQL)?
-  - **A:** "Pharmacy data is highly structured and relational (e.g., Sales must link to Customers and Medicines). SQL ensures data integrity and strict relationships, which is safer for financial/inventory data."
-- **Q:** What is normalization?
-  - **A:** "It's the process of organizing data to reduce redundancy. For example, we don't store the Shop Owner's name in every Sale record; we just store their ID."
+- **Q: Why MySQL?**
+  - **A:** "Because our data is related. Sales need to link to Customers. SQL is best for this kind of structured data."
+- **Q: What is normalization?**
+  - **A:** "It means organizing data so we don't repeat ourselves. We store the Shop Owner ID instead of writing their name everywhere."
 
 ### For Soumik (Security)
 
-- **Q:** How does Bcrypt work?
-  - **A:** "Bcrypt adds a random 'salt' to the password and hashes it multiple times. This makes it impossible to reverse-engineer the password, protecting users even if the database is leaked."
-- **Q:** What happens if I close the browser? Does the session stay?
-  - **A:** "It depends on the cookie settings, but currently, the session is destroyed on logout or timeout to ensure security on shared computers."
-
-### For Abir (Frontend Scripting)
-
-- **Q:** How do you calculate the total bill on the client side?
-  - **A:** "I use Event Listeners in JavaScript. When the quantity changes, the script multiplies it by the unit price and updates the 'Total' field in the DOM instantly."
-- **Q:** How does the search bar work without reloading the page?
-  - **A:** "I used JavaScript to filter the table rows. It hides rows that don't match the text entered in the search input."
+- **Q: How do you protect passwords?**
+  - **A:** "We use **hashing**. It turns the password into a random string of characters that cannot be reversed."
+- **Q: Can one user see another user's data?**
+  - **A:** "No. Every query includes the `shop_owner_id`, so you only get data that belongs to you."
 
 ### For Soumadeep (Design)
 
-- **Q:** Is the design responsive?
-  - **A:** "Yes, we used CSS media queries (or Bootstrap) to ensure the layout adjusts for mobile screens, tablets, and desktops."
-- **Q:** Why did you choose this color scheme?
-  - **A:** "We used clean, medical colors (Blues/Whites) for trust, and used Red/Yellow specifically for alerts (Expiry/Low Stock) to grab attention immediately."
+- **Q: Is it mobile friendly?**
+  - **A:** "Yes, we used responsive CSS so it works on phones and tablets too."
+- **Q: Why use Red and Yellow colors?**
+  - **A:** "They are universal warning colors. We want the chemist to notice expired items immediately."
 
-### For Ankan (System/Backend)
+### For Abir (Frontend Logic)
 
-- **Q:** What is the advantage of the MVC pattern?
-  - **A:** "It allows us to work in parallel. Tanima worked on Models, Soumadeep on Views, and I worked on Controllers without conflicting with each other. It also makes debugging easier."
-- **Q:** How do you handle two people buying the last item at the same time?
-  - **A:** "We use Database Transactions in Sequelize. If two requests come in, the database locks the row, processes one, and the second one will fail or see 'Out of Stock'."
+- **Q: How does the total calculate so fast?**
+  - **A:** "It happens in the browser using JavaScript. We don't wait for the server to calculate it, so it's instant."
+- **Q: How does the search work?**
+  - **A:** "I wrote a script that hides the table rows that don't match the text entered in the search input."
+
+### For Ankan (System)
+
+- **Q: What is FEFO again?**
+  - **A:** "First Expired, First Out. We sell the item that expires soonest, not the one that arrived first."
+- **Q: What happens if two people buy the same item?**
+  - **A:** "The database handles this. It processes one sale at a time to prevent selling stock we don't have."
