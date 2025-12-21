@@ -1,84 +1,100 @@
 # Pharma Stock Presentation Speech & Q&A Guide
 
 **Time Limit:** 15 Minutes Presentation + 5 Minutes Q&A
-**Team Members:** Ankan, Tanima, Soumadeep, Soumik, Abir
+**Team Members:** Ankan, Soumik, Soumadeep, Tanima, Abir
 
 ---
 
 ## 🎤 Role Allocation & Slide Breakdown
 
-| Member        | Role                     | Focus Area                                  | Slides Assigned          |
-| :------------ | :----------------------- | :------------------------------------------ | :----------------------- |
-| **Ankan**     | Team Lead, System Design | Intro, Problem/Solution, Architecture, FEFO | 1, 2, 3, 4, 5, 6, 15, 16 |
-| **Tanima**    | Database Engineer        | Database Tables, Relationships, Data Flow   | 7, 8                     |
-| **Soumik**    | Security & Auth          | Login Security, Tech Stack                  | 9, 14                    |
-| **Soumadeep** | UI/UX Design             | User Journey (Visuals & Layouts)            | 10, 11, 12, 13 (Shared)  |
-| **Abir**      | Frontend Logic (JS)      | User Journey (Functionality & Scripting)    | 10, 11, 12, 13 (Shared)  |
+| Member        | Role                | Focus Area                                      | Slides Assigned         |
+| :------------ | :------------------ | :---------------------------------------------- | :---------------------- |
+| **Ankan**     | Team Lead           | Intro, Problem, Solution, FEFO, Conclusion      | 1-7, Conclusion         |
+| **Soumik**    | Backend Dev         | Methodology, Architecture, Security             | 8, 9, 10                |
+| **Soumadeep** | UI/UX Design        | User Journey (Visuals & Layouts)                | 11, 12, 13, 14 (Shared) |
+| **Tanima**    | Database Engineer   | User Journey (Data), DB Design, Connectivity    | 11-14 (Shared), 15, 16  |
+| **Abir**      | Frontend Logic (JS) | User Journey (Scripting), Future Scope, Scripts | 11-14 (Shared), Future  |
 
 ---
 
-## 🗣️ Speech Pointers (Simplified)
+## 🗣️ Speech Pointers
 
-### 1. Ankan (The Big Picture)
+### 1. Ankan (The Start)
 
-- **Slide 1: Title**
-  - "Hi everyone, we are Team Pharma Stock. I'm Ankan, and this is my team: Tanima, Soumadeep, Soumik, and Abir."
-  - "We built a Smart Pharmacy System to stop medicine wastage."
-- **Slide 2: The Problem**
-  - "Pharmacies lose money because medicines expire on the shelf. Old systems track _how many_ pills you have, but not _when_ they expire."
-- **Slide 3: The Solution**
-  - "Our solution tracks the **Batch Number** and **Expiry Date**. It's like a smart assistant that tells the chemist what to sell."
-- **Slide 4: FEFO Logic (Important!)**
-  - "The most important part is **FEFO: First Expired, First Out**."
-  - "Unlike grocery stores that sell what came in first (FIFO), we sell what expires first. This saves money."
-- **Slide 5 & 6: Architecture & MVC**
-  - "We used a standard 3-part design: Browser, Server (Node.js), and Database (MySQL). We organized our code using MVC to keep it clean."
-  - _"Now, Tanima will explain our data."_
+_Covers Slides 1-7_
 
-### 2. Tanima (The Data)
+- **Intro & Problem:**
+  - "Hi, I'm Ankan. We are Team Pharma Stock."
+  - "We solved the problem of medicine wastage. Old systems track quantity; we track **expiry**."
+- **Solution & FEFO:**
+  - "Our USP is **FEFO (First Expired, First Out)**. We sell the oldest stock first to save money."
+- **Transition:**
+  - "Now, Soumik will explain the technical backbone of our system."
 
-- **Slide 7: Database Design**
-  - "I designed the database using **MySQL**. It's structured and organized."
-  - "We have tables for **Shop Owners**, **Medicines**, **Customers**, and **Sales**."
-  - "Everything is linked. For example, every Medicine belongs to a specific Shop Owner."
-- **Slide 8: Data Flow**
-  - "This diagram shows how data moves. When you sell a medicine, the system updates the Stock table and adds a record to the Sales table at the same time."
-  - _"Next, Soumik will talk about security."_
+### 2. Soumik (The Backend Architecture)
 
-### 3. Soumik (Security & Tech)
+_Covers Slides 8-10_
 
-- **Slide 9: Security**
-  - "Security is key. We don't want Shop A to see Shop B's inventory."
-  - "I used **Bcrypt** to encrypt passwords. Even if someone hacks the database, they can't read the passwords."
-  - "We also use **Sessions** to make sure you must be logged in to see the dashboard."
-- **Slide 14: Tech Stack**
-  - "We used modern tools: **Node.js** for the backend, **MySQL** for the database, and **EJS** for the frontend pages."
-  - _"Now, Soumadeep and Abir will show you the User Journey."_
+- **Slide 8: Methodology (MVC)**
+  - "We used the **MVC (Model-View-Controller)** pattern. This keeps our code organized: Data (Model), UI (View), and Logic (Controller) are separate."
+- **Slide 9: Architecture**
+  - "Our system runs on a 3-tier architecture: **Browser**, **Node.js Server**, and **MySQL Database**."
+- **Slide 10: Security & Multi-Tenancy**
+  - "Security is critical. We use **Bcrypt** for password hashing and **Sessions** to keep user data isolated. Shop A cannot see Shop B's stock."
+  - "Now, we will walk you through the User Journey."
 
-### 4. Soumadeep & Abir (The User Journey - Tag Team)
+### 3. The User Journey (Trio: Soumadeep, Tanima, Abir)
 
-_(Soumadeep covers the Look/Feel, Abir covers the Logic/Code)_
+_Covers Slides 11-14 (Inventory, Dashboard, Sell, History)_
 
-- **Slide 10: Adding Stock**
-  - **Soumadeep:** "I designed the 'Add Stock' page. It's simple and clean. I made sure there are fields for Batch Number and Rack Number so the inventory is organized."
-  - **Abir:** "And I added the logic. When you click 'Add', my script checks if the data is valid before sending it to the server."
-- **Slide 11: The Dashboard**
-  - **Soumadeep:** "This is the main dashboard. I used colors to make it easy to read—Red for danger, Green for safe."
-  - **Abir:** "My code runs in the background here. It checks today's date against the expiry date. If it's expired, it automatically turns the row Red."
-- **Slide 12: Selling (The Main Feature)**
-  - **Soumadeep:** "This is the Sell Page. I designed it to be fast because shops are busy. You just type the Batch Number."
-  - **Abir:** "Exactly. When you type the batch, my script instantly fetches the price and expiry date. It calculates the total bill automatically without reloading the page."
-- **Slide 13: History**
-  - **Soumadeep:** "Finally, we have the History page. It shows a clear list of all past customers."
-  - **Abir:** "This data comes from the database, helping the shop owner track their daily sales."
-  - _"Back to Ankan for the conclusion."_
+**Slide 11: Adding Stock**
 
-### 5. Ankan (Conclusion)
+- **Soumadeep (UI):** "I designed the 'Add Stock' page to be clean. You enter Batch ID and Rack Number here."
+- **Tanima (DB):** "When saved, this data goes into the `Medicines` table, linked to the `ShopOwner` ID."
+- **Abir (Logic):** "My script validates the date format before submission to prevent errors."
 
-- **Slide 15: Future Plans**
-  - "In the future, we want to add AI scanning so you can just take a photo of the medicine strip to add it."
-- **Slide 16: Summary**
-  - "To sum up: Pharma Stock saves money and keeps patients safe. Thank you!"
+**Slide 12: The Dashboard**
+
+- **Soumadeep (UI):** "This is the main view. I used Red alerts for expired items and Yellow for low stock."
+- **Tanima (DB):** "This view queries the database for all items where `expiry_date` is near."
+- **Abir (Logic):** "The frontend logic calculates the days remaining and changes the row color dynamically."
+
+**Slide 13: The Sale (Point of Sale)**
+
+- **Soumadeep (UI):** "The Sell Page is built for speed. Just type the Batch Number."
+- **Tanima (DB):** "This is a complex transaction. It updates the `Medicines` table (subtracts stock) and inserts into `Sales` and `Customers` tables simultaneously."
+- **Abir (Logic):** "I wrote the auto-calculation script. It fetches the price instantly and totals the bill without reloading."
+
+**Slide 14: History**
+
+- **Soumadeep (UI):** "Here we see past transactions."
+- **Tanima (DB):** "This pulls data from the `Sales` table joined with `Customers`."
+
+### 4. Tanima (Database Deep Dive)
+
+_Covers Slides 15-16_
+
+- **Slide 15: Database Design**
+  - "Here is our full Schema. We have normalized tables for Shop Owners, Medicines, and Sales to ensure data integrity."
+- **Slide 16: Database Connectivity**
+  - "This diagram shows how the pages we just saw connect to these tables. The 'Sell Page' touches almost every table in the database."
+
+### 5. Abir (Scripting & Future)
+
+_Covers Future Scope_
+
+- **Scripting Challenges:**
+  - "One challenge was making the bill calculation instant. I used client-side JavaScript to make it feel real-time."
+- **Future Scope:**
+  - "In the future, we plan to add **AI OCR** to scan medicine strips and **SMS alerts** for patients."
+
+### 6. Ankan (Conclusion)
+
+_Covers Conclusion Slide_
+
+- **Summary:**
+  - "To conclude: Pharma Stock saves money, organizes inventory, and ensures patient safety through FEFO."
+  - "Thank you!"
 
 ---
 
