@@ -49,17 +49,13 @@ async function isAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-
-
-
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
-const sequelize = new Sequelize("pharmastock", "root", "root123", {
+const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
 });
-
 
 // --- Models ---
 
@@ -607,28 +603,25 @@ sequelize
 
 // terms of service page link
 app.get("/terms", (req, res) => {
-    res.render("terms");
+  res.render("terms");
 });
 
 //privacy page link
 app.get("/privacy", (req, res) => {
-    res.render("privacy");
+  res.render("privacy");
 });
-
 
 //about page link
 app.get("/about", (req, res) => {
-    res.render("about");
+  res.render("about");
 });
-
 
 //help page link
 app.get("/help", (req, res) => {
-    res.render("help");
+  res.render("help");
 });
-
 
 //how does it work page link
 app.get("/how-does-it-work", (req, res) => {
-    res.render("how-does-it-work");
+  res.render("how-does-it-work");
 });

@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // toggle the eye icon
         if (this.src.includes("close-eye.png")) {
-          this.src = "../public/assets/open-eye.png";
+          this.src = "/assets/open-eye.png";
         } else {
-          this.src = "../public/assets/close-eye.png";
+          this.src = "/assets/close-eye.png";
         }
       }
     });

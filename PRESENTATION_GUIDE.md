@@ -2,7 +2,7 @@
 
 This document serves as a reference for the 10-minute presentation of the Pharma Stock application. It is structured for a 16:9 slide format.
 
-## Presentation Structure (10-12 Minutes / 15 Slides)
+## Presentation Structure (10-12 Minutes / 16 Slides)
 
 ### Slide 1: Title Slide
 
@@ -86,7 +86,48 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 8: Security & Multi-Tenancy
+### Slide 8: Data Flow & Page Mapping
+
+- **Title:** Data Flow & Page Mapping
+- **Content:**
+
+  ```mermaid
+  flowchart LR
+      subgraph Pages
+          direction TB
+          Login[Login / Signup]
+          Stock[Add/View/Update Stock]
+          Sell[Sell Page]
+          History[Customer History]
+      end
+
+      subgraph DB["Database Tables"]
+          direction TB
+          SO[(ShopOwner)]
+          Med[(Medicine)]
+          Cust[(Customer)]
+          Sale[(Sale)]
+      end
+
+      Login --> SO
+      Stock --> Med
+      Sell --> Med
+      Sell --> Cust
+      Sell --> Sale
+      History --> Med
+      History --> Cust
+      History --> Sale
+
+      %% Force straight lines
+      linkStyle 0,1,2,3,4,5,6,7 interpolate linear
+  ```
+
+- **Visual:** A Mermaid diagram mapping Pages to Database Tables.
+- **Speaker Note:** "Here is how our application pages interact with the database. For example, the 'Sell Page' is the most complex, writing to Sales and Customers while updating the Medicine inventory simultaneously."
+
+---
+
+### Slide 9: Security & Multi-Tenancy
 
 - **Title:** Secure & Scalable
 - **Content:**
@@ -98,7 +139,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 9: User Journey - Step 1: Inventory
+### Slide 10: User Journey - Step 1: Inventory
 
 - **Title:** Granular Stock Management
 - **Content:**
@@ -110,7 +151,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 10: User Journey - Step 2: The Dashboard
+### Slide 11: User Journey - Step 2: The Dashboard
 
 - **Title:** Real-Time Inventory Overview
 - **Content:**
@@ -122,7 +163,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 11: User Journey - Step 3: The Sale
+### Slide 12: User Journey - Step 3: The Sale
 
 - **Title:** Intelligent Point of Sale
 - **Content:**
@@ -134,7 +175,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 12: User Journey - Step 4: Insights
+### Slide 13: User Journey - Step 4: Insights
 
 - **Title:** Data-Driven Decisions
 - **Content:**
@@ -146,7 +187,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 13: Technology Stack
+### Slide 14: Technology Stack
 
 - **Title:** Built for Scale
 - **Content:**
@@ -159,7 +200,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 14: Future Roadmap
+### Slide 15: Future Roadmap
 
 - **Title:** What's Next?
 - **Content:**
@@ -171,7 +212,7 @@ This document serves as a reference for the 10-minute presentation of the Pharma
 
 ---
 
-### Slide 15: Conclusion
+### Slide 16: Conclusion
 
 - **Title:** Summary
 - **Content:**
