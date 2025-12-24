@@ -58,6 +58,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST || "localhost",
     dialect: "mysql",
+    dialectModule: require("mysql2"),
     logging: false,
     port: process.env.DB_PORT || 3306,
     dialectOptions: {
@@ -605,15 +606,22 @@ app.post("/api/sell", isAuthenticated, async (req, res) => {
 // 4. START SERVER
 // =========================================
 
-// Attempt to sync database (Critical for Vercel/Serverless where tables might not exist)
-sequelize
-  .sync({ alter: true })
-  .then(() => console.log("✅ Database Synced!"))
-  .catch((err) => console.error("❌ Database Sync Error:", err));
+// Special route to initialize DB (Visit /init-db once to create tables)
+app.get("/init-db", async (req, res) => {
+  try {
+    await sequelize.sync({ alter: true });
+    res.send("✅ Database Synced Successfully! You can now use the app.");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("❌ Database Sync Error: " + err.message);
+  }
+});
 
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  sequelize.sync({ alter: true }).then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
   });
 }
 
