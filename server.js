@@ -4,6 +4,7 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 // =========================================
 // 1. APP INITIALIZATION & MIDDLEWARE
@@ -25,36 +26,6 @@ app.get("/ping", (req, res) => res.send("pong"));
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Session Configuration
-app.use(
-  session({
-    secret: "supersecretkey",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
-// Authentication Middleware
-async function isAuthenticated(req, res, next) {
-  if (req.session.userId) {
-    try {
-      // We need to access ShopOwner here. Since it's defined later, we rely on hoisting or execution order.
-      // To be safe, we can access it via sequelize.models if needed, or just assume it's ready.
-      // However, const variables are not hoisted.
-      // Let's move this middleware usage or definition, OR just use sequelize.models.shop_owner
-      // But ShopOwner variable is available in the scope when the function EXECUTED.
-      const user = await ShopOwner.findByPk(req.session.userId);
-      if (user) {
-        res.locals.user = user; // Available in all views
-        return next();
-      }
-    } catch (err) {
-      console.error("Auth Middleware Error:", err);
-    }
-  }
-  res.redirect("/login");
-}
 
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
@@ -79,6 +50,50 @@ const sequelize = new Sequelize(
     },
   }
 );
+
+// Session Configuration
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+});
+
+app.use(
+  session({
+    secret: "supersecretkey",
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === "production" || process.env.DB_SSL === "true",
+      sameSite: "lax",
+    },
+  })
+);
+
+// Sync the session store
+sessionStore.sync();
+
+// Authentication Middleware
+async function isAuthenticated(req, res, next) {
+  if (req.session.userId) {
+    try {
+      // We need to access ShopOwner here. Since it's defined later, we rely on hoisting or execution order.
+      // To be safe, we can access it via sequelize.models if needed, or just assume it's ready.
+      // However, const variables are not hoisted.
+      // Let's move this middleware usage or definition, OR just use sequelize.models.shop_owner
+      // But ShopOwner variable is available in the scope when the function EXECUTED.
+      const user = await ShopOwner.findByPk(req.session.userId);
+      if (user) {
+        res.locals.user = user; // Available in all views
+        return next();
+      }
+    } catch (err) {
+      console.error("Auth Middleware Error:", err);
+    }
+  }
+  res.redirect("/login");
+}
 
 // --- Models ---
 
