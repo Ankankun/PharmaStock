@@ -11,9 +11,16 @@ const session = require("express-session");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust Proxy for Vercel
+app.set("trust proxy", 1);
+
 // Static Files & View Engine
 app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views")); // Explicitly set views directory
 app.set("view engine", "ejs");
+
+// Health Check Route
+app.get("/ping", (req, res) => res.send("pong"));
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
