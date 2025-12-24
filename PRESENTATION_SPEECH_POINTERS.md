@@ -106,6 +106,20 @@ _Covers Conclusion Slide_
   - **A:** "Because our data is related. Sales need to link to Customers. SQL is best for this kind of structured data."
 - **Q: What is normalization?**
   - **A:** "It means organizing data so we don't repeat ourselves. We store the Shop Owner ID instead of writing their name everywhere."
+- **Q: How do you handle relationships between tables?**
+  - **A:** "We use Foreign Keys. For example, the `Sales` table links to the `Medicines` table using `med_id`, so we know exactly which batch was sold."
+- **Q: Why use Sequelize (ORM) instead of raw SQL?**
+  - **A:** "It makes the code cleaner and safer. It automatically handles SQL injection protection, so we don't have to write complex validation manually."
+- **Q: How do you ensure data privacy between shop owners?**
+  - **A:** "Every table has a `shop_owner_id`. Every time we run a query, we filter by this ID, so Shop A can never accidentally access Shop B's data."
+- **Q: What happens if a shop owner deletes their account?**
+  - **A:** "We use `ON DELETE CASCADE`. If an owner is deleted, the database automatically removes all their associated medicines and sales to keep the system clean."
+- **Q: How do you store prices to avoid calculation errors?**
+  - **A:** "We use the `DECIMAL` data type instead of `FLOAT`. `FLOAT` can have rounding errors, but `DECIMAL` is exact, which is critical for money."
+- **Q: How does the database handle simultaneous sales?**
+  - **A:** "We use **Database Transactions**. This ensures that deducting stock and recording the sale happen together. If one fails, both are cancelled (rolled back)."
+- **Q: How do you make searching for medicines fast?**
+  - **A:** "We use **Indexing** on columns like `medicine_name` and `batch_no`. This acts like a book's index, letting the database find rows instantly without scanning the whole table."
 
 ### For Soumik (Security)
 

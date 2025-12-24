@@ -9,7 +9,7 @@ const session = require("express-session");
 // 1. APP INITIALIZATION & MIDDLEWARE
 // =========================================
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Static Files & View Engine
 app.use(express.static(path.join(__dirname, "public")));
@@ -51,11 +51,26 @@ async function isAuthenticated(req, res, next) {
 
 // =========================================
 // 2. DATABASE CONNECTION & MODELS
-const sequelize = new Sequelize("pharmastock", "root", "Pikachu28?", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME || "pharmastock",
+  process.env.DB_USER || "root",
+  process.env.DB_PASSWORD || "Pikachu28?",
+  {
+    host: process.env.DB_HOST || "localhost",
+    dialect: "mysql",
+    logging: false,
+    port: process.env.DB_PORT || 3306,
+    dialectOptions: {
+      ssl:
+        process.env.DB_SSL === "true"
+          ? {
+              require: true,
+              rejectUnauthorized: false,
+            }
+          : undefined,
+    },
+  }
+);
 
 // --- Models ---
 
@@ -589,17 +604,21 @@ app.post("/api/sell", isAuthenticated, async (req, res) => {
 // =========================================
 // 4. START SERVER
 // =========================================
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("✅ Database Synced!");
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
+if (require.main === module) {
+  sequelize
+    .sync({ alter: true })
+    .then(() => {
+      console.log("✅ Database Synced!");
+      app.listen(PORT, () => {
+        console.log(`🚀 Server running at http://localhost:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error("❌ Database Connection Error:", err);
     });
-  })
-  .catch((err) => {
-    console.error("❌ Database Connection Error:", err);
-  });
+}
+
+module.exports = app;
 
 // terms of service page link
 app.get("/terms", (req, res) => {
