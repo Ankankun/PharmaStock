@@ -604,18 +604,17 @@ app.post("/api/sell", isAuthenticated, async (req, res) => {
 // =========================================
 // 4. START SERVER
 // =========================================
+
+// Attempt to sync database (Critical for Vercel/Serverless where tables might not exist)
+sequelize
+  .sync({ alter: true })
+  .then(() => console.log("✅ Database Synced!"))
+  .catch((err) => console.error("❌ Database Sync Error:", err));
+
 if (require.main === module) {
-  sequelize
-    .sync({ alter: true })
-    .then(() => {
-      console.log("✅ Database Synced!");
-      app.listen(PORT, () => {
-        console.log(`🚀 Server running at http://localhost:${PORT}`);
-      });
-    })
-    .catch((err) => {
-      console.error("❌ Database Connection Error:", err);
-    });
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
 }
 
 module.exports = app;
